@@ -1,8 +1,10 @@
 {
-  "name": "typescript-fs",
+  "name": "bmi-app",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "ts-node": "ts-node",
+    "calculateBmi": "ts-node bmiCalculator.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,9 @@
     "url": "https://github.com/jukaveka/typescript-fs/issues"
   },
   "homepage": "https://github.com/jukaveka/typescript-fs#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.2"
+  }
 }
