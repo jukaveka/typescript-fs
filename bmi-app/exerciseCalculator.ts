@@ -1,3 +1,5 @@
+import { isNotNumber } from "./utils/isNotNumber";
+
 interface ExerciseReport {
   trainingPeriod: number,
   trainingDays: number,
@@ -8,10 +10,39 @@ interface ExerciseReport {
   average: number
 }
 
-const calculateExercises = (dailyExercises: number[], target: number): ExerciseReport => {
-  const totalHours = dailyExercises.reduce((total, currentDay) => total + currentDay, 0)
-  const trainingDays = dailyExercises.filter((day) => day > 0).length
-  const average = totalHours / dailyExercises.length
+interface ExerciseData {
+  target: number,
+  exercises: number[]
+}
+
+const parseParams = (args: string[]): ExerciseData => {
+  if (args.length < 4) throw new Error(`Too few arguments`);
+
+  args.forEach((arg, index) => {
+    if (index >= 2 && isNotNumber(arg)) {
+      throw new Error(`Target hours and daily exercise hours are to given as numbers`)
+    }
+  })
+  
+  let target: number;
+  let exercises: number[];
+  
+  target = Number(args[2])
+  exercises = args
+    .map((arg, index) => {
+      if (index > 2) {
+        return Number(arg)
+      }
+    })
+    .filter((hours) => hours !== undefined)
+
+  return { target, exercises }
+}
+
+const calculateExercises = (target: number, exercises: number[]): ExerciseReport => {
+  const totalHours = exercises.reduce((total, currentDay) => total + currentDay, 0)
+  const trainingDays = exercises.filter((day) => day > 0).length
+  const average = totalHours / exercises.length
 
   const ratio = average / target;
   let rating
@@ -32,7 +63,7 @@ const calculateExercises = (dailyExercises: number[], target: number): ExerciseR
   }
 
   return {
-    trainingPeriod: dailyExercises.length,
+    trainingPeriod: exercises.length,
     trainingDays,
     success: average >= target,
     rating,
@@ -42,6 +73,18 @@ const calculateExercises = (dailyExercises: number[], target: number): ExerciseR
   }
 }
 
-const exerciseArray = [4, 2, 5, 2, 3, 1, 1.5]
+try {
+  const {target, exercises} = parseParams(process.argv)
 
-console.log(calculateExercises(exerciseArray, 2.5))
+  console.log(calculateExercises(target, exercises))
+} catch (error) {
+  let errorMessage = `Something went wrong.`
+
+  if (error instanceof Error) {
+    errorMessage += ` Error: ${error.message}`
+  }
+
+  console.log(errorMessage)
+}
+
+export default calculateExercises

@@ -1,3 +1,5 @@
+import { isNotNumber } from "./utils/isNotNumber"
+
 interface BodyMeasurements {
   heightInCm: number,
   weightInKg: number
@@ -7,7 +9,7 @@ const parseParams = (args: string[]): BodyMeasurements => {
   if (args.length < 4) throw new Error(`Too few arguments`);
   if (args.length > 4) throw new Error(`Too many arguments`);
 
-  if (!isNaN(Number(args[2])) && !isNaN(Number(args[3]))) {
+  if (!isNotNumber(args[2]) && !isNotNumber(args[3])) {
     return {
       heightInCm: Number(args[2]),
       weightInKg: Number(args[3])
