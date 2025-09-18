@@ -5,6 +5,7 @@
   "scripts": {
     "ts-node": "ts-node",
     "start": "ts-node index.ts",
+    "dev": "ts-node-dev index.ts",
     "calculateBmi": "ts-node bmiCalculator.ts",
     "calculateExercises": "ts-node exerciseCalculator.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,8 +22,10 @@
   "homepage": "https://github.com/jukaveka/typescript-fs#readme",
   "description": "",
   "devDependencies": {
+    "@types/express": "^5.0.3",
     "prettier": "3.6.2",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.2"
   },
   "dependencies": {
