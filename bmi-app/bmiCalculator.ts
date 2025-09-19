@@ -36,18 +36,19 @@ const calculateBmi = (heightInCm: number, weightInKg: number) => {
   }
 };
 
-try {
-  const { heightInCm, weightInKg } = parseParams(process.argv);
+if (require.main === module) {
+  try {
+    const { heightInCm, weightInKg } = parseParams(process.argv);
+    console.log(calculateBmi(heightInCm, weightInKg));
+  } catch (error) {
+    let errorMessage = `Something went wrong. `;
 
-  console.log(calculateBmi(heightInCm, weightInKg));
-} catch (error) {
-  let errorMessage = `Something went wrong. `;
+    if (error instanceof Error) {
+      errorMessage += `Error: ${error.message}`;
+    }
 
-  if (error instanceof Error) {
-    errorMessage += `Error: ${error.message}`;
+    console.log(errorMessage);
   }
-
-  console.log(errorMessage);
 }
 
 export default calculateBmi;
