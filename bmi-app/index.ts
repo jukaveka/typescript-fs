@@ -2,6 +2,7 @@ import express from "express";
 import calculateBmi from "./bmiCalculator";
 import calculateExercises from "./exerciseCalculator";
 import { isNotNumber } from "./utils/isNotNumber";
+import { isArrayOfNumbers } from "./utils/isArrayOfNumbers";
 
 const app = express();
 app.use(express.json());
@@ -38,19 +39,15 @@ app.post("/exercises", (req, res) => {
   const { daily_exercises, target } = req.body;
 
   if (!daily_exercises || !target) {
-    return res.status(400).json({ error: "Missing arguments in request body" });
+    return res.status(400).json({ error: "Missing parameters" });
   }
 
-  if (!(daily_exercises instanceof Array)) {
-    return res
-      .status(400)
-      .json({ error: "Exercises need to be given as Array of numbers" });
-  }
-
-  if (isNotNumber(Number(target))) {
-    return res
-      .status(400)
-      .json({ error: "Target hours needs to be given as number" });
+  if (
+    !(daily_exercises instanceof Array) ||
+    isNotNumber(Number(target)) ||
+    !isArrayOfNumbers(daily_exercises)
+  ) {
+    return res.status(400).json({ error: "Malformatted parameters" });
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
