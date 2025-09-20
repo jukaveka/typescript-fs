@@ -26,11 +26,8 @@ const parseParams = (args: string[]): ExerciseData => {
     }
   });
 
-  let target: number;
-  let exercises: number[];
-
-  target = Number(args[2]);
-  exercises = args
+  const target = Number(args[2]);
+  const exercises = args
     .map((arg, index) => {
       if (index > 2) {
         return Number(arg);
