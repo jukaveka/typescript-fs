@@ -28,11 +28,8 @@ const parseParams = (args: string[]): ExerciseData => {
 
   const target = Number(args[2]);
   const exercises = args
-    .map((arg, index) => {
-      if (index > 2) {
-        return Number(arg);
-      }
-    })
+    .slice(2)
+    .map((arg) => Number(arg))
     .filter((hours) => hours !== undefined);
 
   return { target, exercises };
@@ -78,18 +75,20 @@ const calculateExercises = (
   };
 };
 
-try {
-  const { target, exercises } = parseParams(process.argv);
+if (require.main === module) {
+  try {
+    const { target, exercises } = parseParams(process.argv);
 
-  console.log(calculateExercises(target, exercises));
-} catch (error) {
-  let errorMessage = `Something went wrong.`;
+    console.log(calculateExercises(target, exercises));
+  } catch (error) {
+    let errorMessage = `Something went wrong.`;
 
-  if (error instanceof Error) {
-    errorMessage += ` Error: ${error.message}`;
+    if (error instanceof Error) {
+      errorMessage += ` Error: ${error.message}`;
+    }
+
+    console.log(errorMessage);
   }
-
-  console.log(errorMessage);
 }
 
 export default calculateExercises;
