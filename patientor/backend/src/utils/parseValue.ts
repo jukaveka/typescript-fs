@@ -1,4 +1,11 @@
-import { isString, isDate, isValidDateOfBirth, isValidSsn } from "./isType";
+import { Gender } from "../types";
+import {
+  isString,
+  isDate,
+  isValidDateOfBirth,
+  isValidSsn,
+  isGender,
+} from "./isType";
 
 export const parseString = (input: unknown, description: string): string => {
   if (!input || !isString(input)) {
@@ -38,4 +45,14 @@ export const parseSsn = (ssn: unknown): string => {
   }
 
   return ssn;
+};
+
+export const parseGender = (gender: unknown): Gender => {
+  if (!gender || !isString(gender) || !isGender(gender)) {
+    throw new Error(
+      `Gender is missing, not valid string or not valid gender. Gender: ${gender}`
+    );
+  }
+
+  return gender;
 };

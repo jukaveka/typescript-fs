@@ -1,5 +1,10 @@
 import { NonSensitivePatient, NewPatient } from "../types";
-import { parseString, parseDateOfBirth, parseSsn } from "./parseValue";
+import {
+  parseString,
+  parseDateOfBirth,
+  parseSsn,
+  parseGender,
+} from "./parseValue";
 
 export const toNonSensitivePatient = (object: unknown): NonSensitivePatient => {
   if (!object || typeof object !== "object") {
@@ -18,7 +23,7 @@ export const toNonSensitivePatient = (object: unknown): NonSensitivePatient => {
       id: parseString(object.id, "ID"),
       name: parseString(object.name, "Name"),
       dateOfBirth: parseDateOfBirth(object.dateOfBirth),
-      gender: parseString(object.gender, "Gender"),
+      gender: parseGender(object.gender),
       occupation: parseString(object.occupation, "Occupation"),
     };
 
@@ -46,7 +51,7 @@ export const toNewPatient = (object: unknown): NewPatient => {
       name: parseString(object.name, "Name"),
       dateOfBirth: parseDateOfBirth(object.dateOfBirth),
       ssn: parseSsn(object.ssn),
-      gender: parseString(object.gender, "Gender"),
+      gender: parseGender(object.gender),
       occupation: parseString(object.occupation, "Occupation"),
     };
 

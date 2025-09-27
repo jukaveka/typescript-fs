@@ -1,3 +1,5 @@
+import { Gender } from "../types";
+
 export const isString = (input: unknown): input is string => {
   return typeof input === "string" || input instanceof String;
 };
@@ -32,4 +34,10 @@ export const isValidSsn = (ssn: string): boolean => {
     validSsnRunningNumber.test(ssn.substring(7, 10)) &&
     validSsnCheckCharacter.test(ssn.substring(10, 11))
   );
+};
+
+export const isGender = (input: string): input is Gender => {
+  return Object.values(Gender)
+    .map((value) => value.toString())
+    .includes(input);
 };
