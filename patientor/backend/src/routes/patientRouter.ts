@@ -2,8 +2,8 @@ import express from "express";
 import { Response } from "express";
 import { NonSensitivePatient } from "../types";
 import patientService from "../services/patientService";
-import { toNewPatient } from "../utils/toPatient";
 import { parseErrorMessage } from "../utils/parseValue";
+import { NewPatientSchema } from "../utils/toPatient";
 
 const router = express.Router();
 
@@ -13,7 +13,7 @@ router.get("/", (_req, res: Response<NonSensitivePatient[]>) => {
 
 router.post("/", (req, res: Response<NonSensitivePatient | string>) => {
   try {
-    const validatedPatient = toNewPatient(req.body);
+    const validatedPatient = NewPatientSchema.parse(req.body);
 
     const addedPatient = patientService.addPatient(validatedPatient);
 

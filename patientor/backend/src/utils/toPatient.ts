@@ -1,10 +1,12 @@
-import { NonSensitivePatient, NewPatient } from "../types";
+import { NonSensitivePatient, NewPatient, Gender } from "../types";
 import {
   parseString,
   parseDateOfBirth,
   parseSsn,
   parseGender,
 } from "./parseValue";
+
+import { z } from "zod";
 
 export const toNonSensitivePatient = (object: unknown): NonSensitivePatient => {
   if (!object || typeof object !== "object") {
@@ -34,6 +36,14 @@ export const toNonSensitivePatient = (object: unknown): NonSensitivePatient => {
     "Couldn't convert to non-sensitive patient due to missing fields"
   );
 };
+
+export const NewPatientSchema = z.object({
+  name: z.string(),
+  dateOfBirth: z.string().date(),
+  ssn: z.string(),
+  gender: z.nativeEnum(Gender),
+  occupation: z.string(),
+});
 
 export const toNewPatient = (object: unknown): NewPatient => {
   if (!object || typeof object !== "object") {
