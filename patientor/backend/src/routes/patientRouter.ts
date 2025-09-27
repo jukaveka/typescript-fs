@@ -2,7 +2,7 @@ import express from "express";
 import { Response } from "express";
 import { NonSensitivePatient } from "../types";
 import patientService from "../services/patientService";
-import { toNewPatient } from "../utils/toNewPatient";
+import { toNewPatient } from "../utils/toPatient";
 import { parseErrorMessage } from "../utils/parseValue";
 
 const router = express.Router();
