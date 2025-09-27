@@ -1,8 +1,8 @@
 import express from "express";
 import { Response } from "express";
+import { z } from "zod";
 import { NonSensitivePatient } from "../types";
 import patientService from "../services/patientService";
-import { parseErrorMessage } from "../utils/parseValue";
 import { NewPatientSchema } from "../utils/toPatient";
 
 const router = express.Router();
@@ -11,7 +11,7 @@ router.get("/", (_req, res: Response<NonSensitivePatient[]>) => {
   return res.send(patientService.getNonSensitivePatients());
 });
 
-router.post("/", (req, res: Response<NonSensitivePatient | string>) => {
+router.post("/", (req, res) => {
   try {
     const validatedPatient = NewPatientSchema.parse(req.body);
 
@@ -19,7 +19,11 @@ router.post("/", (req, res: Response<NonSensitivePatient | string>) => {
 
     return res.send(addedPatient);
   } catch (error) {
-    return res.status(400).send(parseErrorMessage(error));
+    if (error instanceof z.ZodError) {
+      return res.status(400).send({ error: error.issues });
+    } else {
+      return res.status(400).send({ error: "unknown error " });
+    }
   }
 });
 
