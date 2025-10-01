@@ -18,20 +18,11 @@ const Part = (props: CoursePartProps) => {
       case "basic":
         return null;
       case "group":
-        return (
-          <p key={`course-${coursePart.name}-projects`}>
-            Group projects - {coursePart.groupProjectCount}
-          </p>
-        );
+        return <p>Group projects - {coursePart.groupProjectCount}</p>;
       case "background":
-        return (
-          <a
-            key={`course-${coursePart.name}-material`}
-            href={coursePart.backgroundMaterial}
-          >
-            Background material
-          </a>
-        );
+        return <a href={coursePart.backgroundMaterial}>Background material</a>;
+      case "requirements":
+        return <p> Requirements - {coursePart.requirements.join(", ")}</p>;
       default:
         assertNever(coursePart);
         break;
@@ -40,10 +31,8 @@ const Part = (props: CoursePartProps) => {
 
   return (
     <>
-      <p key={`course-${coursePart.name}-name`}> Course - {coursePart.name} </p>
-      <p key={`course-${coursePart.name}-count`}>
-        Exercises - {coursePart.exerciseCount}
-      </p>
+      <p> Course - {coursePart.name} </p>
+      <p>Exercises - {coursePart.exerciseCount}</p>
       {renderOptionalFields()}
       <hr />
     </>
