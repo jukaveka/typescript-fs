@@ -20,3 +20,5 @@ export interface DiaryEntry {
   visibility: Visibility;
   comment?: string;
 }
+
+export type newDiaryEntry = Omit<DiaryEntry, "id">;

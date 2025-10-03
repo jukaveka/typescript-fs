@@ -5,10 +5,8 @@ interface DiaryProps {
 }
 
 const Diary = (props: DiaryProps) => {
-  console.log(`Diary to display ${props.diaryEntry}`);
   const entry = props.diaryEntry;
 
-  console.log(`Entry to display ${entry}`);
   return (
     <>
       <p>
@@ -16,7 +14,6 @@ const Diary = (props: DiaryProps) => {
       </p>
       <p> {entry.weather} </p>
       <p> {entry.visibility} </p>
-      <br />
     </>
   );
 };

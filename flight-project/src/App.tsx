@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
-import DiaryEntries from "./components/DiaryEntries";
+
 import { type DiaryEntry } from "./types";
-import { getAllDiaries } from "./services/DiaryService";
+
+import DiaryEntries from "./components/DiaryEntries";
 import Header from "./components/Header";
+
+import { getAllDiaries } from "./services/DiaryService";
+import DiaryForm from "./components/DiaryForm";
 
 function App() {
   const [diaries, setDiaries] = useState<DiaryEntry[]>([]);
@@ -14,6 +18,7 @@ function App() {
   return (
     <>
       <Header />
+      <DiaryForm diaries={diaries} setDiaries={setDiaries} />
       <DiaryEntries diaries={diaries} />
     </>
   );
