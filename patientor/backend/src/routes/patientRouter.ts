@@ -11,6 +11,12 @@ router.get("/", (_req, res: Response<NonSensitivePatient[]>) => {
   return res.send(patientService.getNonSensitivePatients());
 });
 
+router.get("/:id", (req, res) => {
+  const patient = patientService.getPatientById(req.params.id)
+
+  return res.send(patient)
+})
+
 router.post("/", (req, res) => {
   try {
     const validatedPatient = NewPatientSchema.parse(req.body);

@@ -27,6 +27,7 @@ export const toNonSensitivePatient = (object: unknown): NonSensitivePatient => {
       dateOfBirth: parseDateOfBirth(object.dateOfBirth),
       gender: parseGender(object.gender),
       occupation: parseString(object.occupation, "Occupation"),
+      entries: []
     };
 
     return nonSensitivePatient;
