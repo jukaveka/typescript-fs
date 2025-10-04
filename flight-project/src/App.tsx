@@ -7,9 +7,11 @@ import Header from "./components/Header";
 
 import { getAllDiaries } from "./services/DiaryService";
 import DiaryForm from "./components/DiaryForm";
+import Notification from "./components/Notification";
 
 function App() {
   const [diaries, setDiaries] = useState<DiaryEntry[]>([]);
+  const [notification, setNotification] = useState("");
 
   useEffect(() => {
     getAllDiaries().then((data) => setDiaries(data));
@@ -18,7 +20,12 @@ function App() {
   return (
     <>
       <Header />
-      <DiaryForm diaries={diaries} setDiaries={setDiaries} />
+      <Notification notification={notification} />
+      <DiaryForm
+        diaries={diaries}
+        setDiaries={setDiaries}
+        setNotification={setNotification}
+      />
       <DiaryEntries diaries={diaries} />
     </>
   );

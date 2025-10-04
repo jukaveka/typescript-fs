@@ -8,7 +8,17 @@ export const getAllDiaries = () => {
 };
 
 export const createDiary = (object: newDiaryEntry) => {
-  return axios
-    .post<DiaryEntry>(baseUrl, object)
-    .then((response) => response.data);
+  try {
+    return axios
+      .post<DiaryEntry>(baseUrl, object)
+      .then((response) => response.data);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(
+        `Something went wrong with creating new diary entry. Status: ${error.status}. Error: ${error.response}`
+      );
+    } else {
+      throw new Error(`Something went wrong with creating new diary entry`);
+    }
+  }
 };

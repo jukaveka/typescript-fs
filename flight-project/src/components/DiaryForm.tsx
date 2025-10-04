@@ -5,10 +5,11 @@ import { Visibility, Weather, type DiaryEntry } from "../types";
 interface DiaryFormProps {
   diaries: DiaryEntry[];
   setDiaries: React.Dispatch<React.SetStateAction<DiaryEntry[]>>;
+  setNotification: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const DiaryForm = (props: DiaryFormProps) => {
-  const { diaries, setDiaries } = props;
+  const { diaries, setDiaries, setNotification } = props;
 
   const [date, setDate] = useState("");
   const [weather, setWeather] = useState<Weather>(Weather.Rainy);
@@ -25,9 +26,16 @@ const DiaryForm = (props: DiaryFormProps) => {
       comment: comment,
     };
 
-    createDiary(newDiary).then((data) => {
-      setDiaries(diaries.concat(data));
-    });
+    createDiary(newDiary)
+      .then((data) => {
+        setDiaries(diaries.concat(data));
+      })
+      .catch((error) => {
+        setNotification(error.response.data);
+        setTimeout(() => {
+          setNotification("");
+        }, 5000);
+      });
 
     setDate("");
     setWeather(Weather.Rainy);
