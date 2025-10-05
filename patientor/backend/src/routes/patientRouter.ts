@@ -12,10 +12,10 @@ router.get("/", (_req, res: Response<NonSensitivePatient[]>) => {
 });
 
 router.get("/:id", (req, res) => {
-  const patient = patientService.getPatientById(req.params.id)
+  const patient = patientService.getPatientById(req.params.id);
 
-  return res.send(patient)
-})
+  return res.send(patient);
+});
 
 router.post("/", (req, res) => {
   try {
