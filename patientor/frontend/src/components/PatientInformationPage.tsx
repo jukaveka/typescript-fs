@@ -5,10 +5,10 @@ import { Patient } from "../types";
 
 import PatientService from "../services/patients";
 
-import { Container, Grid, Paper, Typography } from "@mui/material";
-import MaleIcon from "@mui/icons-material/Male";
-import FemaleIcon from "@mui/icons-material/Female";
-import TransgenderIcon from "@mui/icons-material/Transgender";
+import { Box, Container, Grid, Typography } from "@mui/material";
+
+import PatientEntry from "./PatientEntry";
+import PatientInformation from "./PatientInformation";
 
 const PatientInformationPage = () => {
   const { id } = useParams();
@@ -24,50 +24,27 @@ const PatientInformationPage = () => {
 
   if (!patient) return null;
 
-  const patientGenderIcon = () => {
-    switch (patient.gender) {
-      case "male":
-        return <MaleIcon />;
-      case "female":
-        return <FemaleIcon />;
-      case "other":
-        return <TransgenderIcon />;
-      default:
-        return null;
-    }
-  };
-
   return (
     <>
       <Container>
-        <Grid container spacing={5}>
-          <Grid xs={12} sx={{ padding: "50px" }}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} sx={{ padding: "50px" }}>
             <Typography variant={"h3"} sx={{ textAlign: "center" }}>
               {patient.name}
             </Typography>
           </Grid>
-          <Grid xs={6}>
-            <Typography variant="h4" sx={{ textAlign: "center" }}>
-              Information
-            </Typography>
-            <br />
-            <Paper sx={{ padding: "20px" }}>
-              <Typography variant="h6"> Gender </Typography>
-              <Typography>
-                {patientGenderIcon()} {patient.gender}
-              </Typography>
-              <br />
-              <Typography variant="h6"> SSN </Typography>
-              <Typography> {patient.ssn} </Typography>
-              <br />
-              <Typography variant="h6"> Occupation </Typography>
-              <Typography> {patient.occupation} </Typography>
-            </Paper>
+          <Grid item xs={6}>
+            <PatientInformation patient={patient} />
           </Grid>
-          <Grid xs={6}>
+          <Grid item xs={6}>
             <Typography variant="h4" sx={{ textAlign: "center" }}>
               Entries
             </Typography>
+            <Box sx={{ padding: "20px" }}>
+              {patient.entries.map((entry) => {
+                return <PatientEntry key={entry.id} entry={entry} />;
+              })}
+            </Box>
           </Grid>
         </Grid>
       </Container>
