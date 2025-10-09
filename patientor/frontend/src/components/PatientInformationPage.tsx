@@ -7,8 +7,8 @@ import PatientService from "../services/patients";
 
 import { Box, Container, Grid, Typography } from "@mui/material";
 
-import PatientEntry from "./PatientEntry";
 import PatientInformation from "./PatientInformation";
+import PatientEntries from "./PatientEntries";
 
 const PatientInformationPage = () => {
   const { id } = useParams();
@@ -41,9 +41,7 @@ const PatientInformationPage = () => {
               Entries
             </Typography>
             <Box sx={{ padding: "20px" }}>
-              {patient.entries.map((entry) => {
-                return <PatientEntry key={entry.id} entry={entry} />;
-              })}
+              <PatientEntries entries={patient.entries} />
             </Box>
           </Grid>
         </Grid>
