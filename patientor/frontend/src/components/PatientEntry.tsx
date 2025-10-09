@@ -4,14 +4,15 @@ import {
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import { Entry } from "../types";
+import { Diagnosis, Entry } from "../types";
 import { ArrowDropDown } from "@mui/icons-material";
 
 interface Props {
   entry: Entry;
+  diagnoses: Diagnosis[];
 }
 
-const PatientEntry = ({ entry }: Props) => {
+const PatientEntry = ({ entry, diagnoses }: Props) => {
   const parseVisitType = (type: string) => {
     switch (type) {
       case "Hospital":
@@ -24,6 +25,19 @@ const PatientEntry = ({ entry }: Props) => {
         return null;
     }
   };
+
+  const findEntryDiagnoses = (
+    entryCodes: Array<Diagnosis["code"]> | undefined
+  ): Array<Diagnosis> => {
+    if (typeof entryCodes === "undefined") {
+      return [];
+    } else {
+      return diagnoses.filter((diagnosis) =>
+        entryCodes.includes(diagnosis.code)
+      );
+    }
+  };
+
   return (
     <>
       <Accordion>
@@ -33,14 +47,18 @@ const PatientEntry = ({ entry }: Props) => {
           id={`${entry.id}-header`}
         >
           <Typography component="span">
-            {entry.date} - {parseVisitType(entry.type)}
+            {entry.date} - {parseVisitType(entry.type)} - {entry.specialist}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography variant="h6"> Attended by {entry.specialist} </Typography>
-          <br />
-          <br />
           {entry.description}
+          <br />
+          {findEntryDiagnoses(entry.diagnosisCodes).map((diagnosis) => (
+            <p>
+              <b> {diagnosis.code} </b>
+              {diagnosis.name}
+            </p>
+          ))}
         </AccordionDetails>
       </Accordion>
     </>

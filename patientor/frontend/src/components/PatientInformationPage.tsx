@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Patient } from "../types";
+import { Diagnosis, Patient } from "../types";
 
-import PatientService from "../services/patients";
+import PatientService from "../services/patientService";
 
 import { Box, Container, Grid, Typography } from "@mui/material";
 
 import PatientInformation from "./PatientInformation";
 import PatientEntries from "./PatientEntries";
 
-const PatientInformationPage = () => {
+interface Props {
+  diagnoses: Diagnosis[];
+}
+
+const PatientInformationPage = ({ diagnoses }: Props) => {
   const { id } = useParams();
 
   console.log(id);
@@ -41,7 +45,7 @@ const PatientInformationPage = () => {
               Entries
             </Typography>
             <Box sx={{ padding: "20px" }}>
-              <PatientEntries entries={patient.entries} />
+              <PatientEntries entries={patient.entries} diagnoses={diagnoses} />
             </Box>
           </Grid>
         </Grid>
