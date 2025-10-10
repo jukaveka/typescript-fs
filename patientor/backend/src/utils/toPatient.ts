@@ -1,10 +1,34 @@
-import { Gender } from "../types/patientTypes";
-import { z } from "zod";
+import {
+  NewPatient,
+  NewPatientSchema,
+  NonSensitivePatient,
+  NonSensitivePatientSchema,
+} from "../types/patientTypes";
 
-export const NewPatientSchema = z.object({
-  name: z.string(),
-  dateOfBirth: z.string().date(),
-  ssn: z.string(),
-  gender: z.nativeEnum(Gender),
-  occupation: z.string(),
-});
+export const toNewPatient = (object: unknown): NewPatient => {
+  if (!object || typeof object !== "object") {
+    throw new Error("Patient object is missing or not object");
+  }
+
+  try {
+    const parsedPatient = NewPatientSchema.parse(object);
+
+    return parsedPatient;
+  } catch (error) {
+    throw new Error(`Couldn't parse object into NewPatient. ${error}`);
+  }
+};
+
+export const toNonSensitivePatient = (object: unknown): NonSensitivePatient => {
+  if (!object || typeof object !== "object") {
+    throw new Error("Patient object is missing or not object");
+  }
+
+  try {
+    const parsedPatient = NonSensitivePatientSchema.parse(object);
+
+    return parsedPatient;
+  } catch (error) {
+    throw new Error(`Couldn't parse object into NewPatient. ${error}`);
+  }
+};

@@ -1,6 +1,5 @@
 import { z } from "zod";
-import { NewPatientSchema } from "../utils/toPatient";
-import { Entry } from "./entryTypes";
+import { Entry, EntrySchema } from "./entryTypes";
 
 export enum Gender {
   Male = "male",
@@ -18,6 +17,23 @@ export interface Patient {
   entries: Entry[];
 }
 
-export type NonSensitivePatient = Omit<Patient, "ssn">;
+export const NewPatientSchema = z.object({
+  name: z.string(),
+  dateOfBirth: z.string().date(),
+  ssn: z.string(),
+  gender: z.nativeEnum(Gender),
+  occupation: z.string(),
+});
+
+export const NonSensitivePatientSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  dateOfBirth: z.string().date(),
+  gender: z.nativeEnum(Gender),
+  occupation: z.string(),
+  entries: z.object(EntrySchema).array(),
+});
+
+export type NonSensitivePatient = z.infer<typeof NonSensitivePatientSchema>;
 
 export type NewPatient = z.infer<typeof NewPatientSchema>;

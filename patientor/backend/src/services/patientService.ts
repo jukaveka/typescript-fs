@@ -13,16 +13,11 @@ const getPatients = (): Patient[] => {
 };
 
 const getNonSensitivePatients = (): NonSensitivePatient[] => {
-  return patientData.map(
-    ({ id, name, dateOfBirth, gender, occupation, entries }) => ({
-      id,
-      name,
-      dateOfBirth,
-      gender,
-      occupation,
-      entries,
-    })
+  const nonSensitivePatientData = patientData.map((patient) =>
+    toNonSensitivePatient(patient)
   );
+
+  return nonSensitivePatientData;
 };
 
 const getPatientById = (id: string): Patient | undefined => {
