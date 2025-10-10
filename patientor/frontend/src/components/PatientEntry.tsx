@@ -6,6 +6,7 @@ import {
 } from "@mui/material";
 import { Diagnosis, Entry } from "../types";
 import { ArrowDropDown } from "@mui/icons-material";
+import { assertNever } from "../utils/assertNever";
 
 interface Props {
   entry: Entry;
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const PatientEntry = ({ entry, diagnoses }: Props) => {
-  const parseVisitType = (type: string) => {
+  const parseVisitType = (type: Entry["type"]) => {
     switch (type) {
       case "Hospital":
         return <> Hospital</>;
@@ -22,7 +23,7 @@ const PatientEntry = ({ entry, diagnoses }: Props) => {
       case "HealthCheck":
         return <> Health checkup</>;
       default:
-        return null;
+        return assertNever(type);
     }
   };
 
