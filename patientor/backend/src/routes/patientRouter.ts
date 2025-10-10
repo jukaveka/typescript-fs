@@ -1,7 +1,7 @@
 import express from "express";
 import { Response } from "express";
 import { z } from "zod";
-import { NonSensitivePatient } from "../types";
+import { NonSensitivePatient } from "../types/patientTypes";
 import patientService from "../services/patientService";
 import { NewPatientSchema } from "../utils/toPatient";
 

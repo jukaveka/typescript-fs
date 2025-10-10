@@ -1,6 +1,11 @@
 import { v4 as uuid } from "uuid";
 import patientData from "../data/patientData";
-import { Patient, NonSensitivePatient, NewPatient } from "../types";
+import {
+  Patient,
+  NonSensitivePatient,
+  NewPatient,
+} from "../types/patientTypes";
+import { Entry, NewEntry } from "../types/entryTypes";
 import { toNonSensitivePatient } from "../utils/toPatient";
 
 const getPatients = (): Patient[] => {

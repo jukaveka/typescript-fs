@@ -1,27 +1,5 @@
-import { z } from "zod";
-import { NewPatientSchema } from "./utils/toPatient";
-
-export interface Diagnosis {
-  code: string;
-  name: string;
-  latin?: string;
-}
-
-export enum Gender {
-  Male = "male",
-  Female = "female",
-  Other = "other",
-}
-
-export interface Patient {
-  id: string;
-  name: string;
-  dateOfBirth: string;
-  ssn: string;
-  gender: Gender;
-  occupation: string;
-  entries: Entry[];
-}
+import { UnionOmit } from "../utils/omitUnionType";
+import { Diagnosis } from "./diagnosisTypes";
 
 export interface BaseEntry {
   id: string;
@@ -69,6 +47,4 @@ export type Entry =
   | OccupationalHealthCareEntry
   | HospitalEntry;
 
-export type NonSensitivePatient = Omit<Patient, "ssn">;
-
-export type NewPatient = z.infer<typeof NewPatientSchema>;
+export type NewEntry = UnionOmit<Entry, "id">;
