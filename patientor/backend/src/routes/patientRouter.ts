@@ -1,9 +1,9 @@
 import express from "express";
 import { Response } from "express";
 import { z } from "zod";
-import { NonSensitivePatient } from "../types/patientTypes";
+import { NonSensitivePatient, NewPatientSchema } from "../types/patientTypes";
 import patientService from "../services/patientService";
-import { NewPatientSchema } from "../types/patientTypes";
+import { parseNewEntry } from "../utils/parseValue";
 
 const router = express.Router();
 
@@ -31,6 +31,16 @@ router.post("/", (req, res) => {
       return res.status(400).send({ error: "unknown error " });
     }
   }
+});
+
+router.post("/:id/entries", (req, res) => {
+  const patientId = req.params.id;
+
+  const entry = parseNewEntry(req.body);
+
+  const addedEntry = patientService.addPatientEntry(patientId, entry);
+
+  return res.send(addedEntry);
 });
 
 export default router;

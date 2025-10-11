@@ -31,7 +31,7 @@ export const NonSensitivePatientSchema = z.object({
   dateOfBirth: z.string().date(),
   gender: z.nativeEnum(Gender),
   occupation: z.string(),
-  entries: z.object(EntrySchema).array(),
+  entries: z.array(EntrySchema),
 });
 
 export type NonSensitivePatient = z.infer<typeof NonSensitivePatientSchema>;

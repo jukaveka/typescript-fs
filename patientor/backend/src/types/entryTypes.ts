@@ -26,12 +26,12 @@ export enum healthCheckRating {
 }
 
 const HealthCheckEntrySchema = BaseEntrySchema.extend({
-  type: z.string("HealthCheck"),
+  type: z.literal("HealthCheck"),
   healthCheckRating: z.nativeEnum(healthCheckRating),
 });
 
 const OccupationalHealhtCareSchema = BaseEntrySchema.extend({
-  type: z.string("OccupationalHealthcare"),
+  type: z.literal("OccupationalHealthcare"),
   employerName: z.string(),
   sickLeave: z
     .object({ startDate: z.string().date(), endDate: z.string().date() })
@@ -39,7 +39,7 @@ const OccupationalHealhtCareSchema = BaseEntrySchema.extend({
 });
 
 const HospitalEntrySchema = BaseEntrySchema.extend({
-  type: z.string("Hospital"),
+  type: z.literal("Hospital"),
   discharge: z.object({ date: z.string().date(), criteria: z.string() }),
 });
 
