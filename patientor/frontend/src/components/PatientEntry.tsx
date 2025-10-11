@@ -14,7 +14,7 @@ interface Props {
 }
 
 const PatientEntry = ({ entry, diagnoses }: Props) => {
-  const parseVisitType = (type: Entry["type"]) => {
+  const renderEntryType = (type: Entry["type"]) => {
     switch (type) {
       case "Hospital":
         return <> Hospital</>;
@@ -22,6 +22,36 @@ const PatientEntry = ({ entry, diagnoses }: Props) => {
         return <> Occupational healthcare</>;
       case "HealthCheck":
         return <> Health checkup</>;
+      default:
+        return assertNever(type);
+    }
+  };
+
+  const renderEntryTypeInformation = (entry: Entry) => {
+    const type = entry.type;
+    switch (type) {
+      case "Hospital":
+        return (
+          <>
+            <Typography variant="h6"> Discharge </Typography>
+            <Typography> {entry.discharge.date}</Typography>
+            <Typography> {entry.discharge.criteria} </Typography>
+          </>
+        );
+      case "OccupationalHealthcare":
+        return (
+          <>
+            <Typography variant="h6"> Employer </Typography>
+            <Typography> {entry.employerName}</Typography>
+          </>
+        );
+      case "HealthCheck":
+        return (
+          <>
+            <Typography variant="h6"> Health rating </Typography>
+            <Typography> {entry.healthCheckRating}</Typography>
+          </>
+        );
       default:
         return assertNever(type);
     }
@@ -48,16 +78,22 @@ const PatientEntry = ({ entry, diagnoses }: Props) => {
           id={`${entry.id}-header`}
         >
           <Typography component="span">
-            {entry.date} - {parseVisitType(entry.type)} - {entry.specialist}
+            {entry.date} - {renderEntryType(entry.type)} - {entry.specialist}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {entry.description}
+          {renderEntryTypeInformation(entry)}
           <br />
+          <Typography variant="h6"> Journal</Typography>
+          <Typography>{entry.description}</Typography>
+          <br />
+          <Typography variant="h6"> Diagnosis </Typography>
           {findEntryDiagnoses(entry.diagnosisCodes).map((diagnosis) => (
             <p>
-              <b> {diagnosis.code} </b>
-              {diagnosis.name}
+              <Typography>
+                <b> {diagnosis.code} </b>
+                {diagnosis.name}
+              </Typography>
             </p>
           ))}
         </AccordionDetails>

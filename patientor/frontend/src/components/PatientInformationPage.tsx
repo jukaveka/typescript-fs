@@ -16,8 +16,6 @@ interface Props {
 
 const PatientInformationPage = ({ diagnoses }: Props) => {
   const { id } = useParams();
-
-  console.log(id);
   const [patient, setPatient] = useState<Patient>();
 
   useEffect(() => {
