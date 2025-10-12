@@ -6,9 +6,10 @@ import { Button, Divider, Container, Typography } from "@mui/material";
 import { apiBaseUrl } from "./constants";
 import { Diagnosis, Patient } from "./types";
 
-import patientService from "./services/patientService";
 import PatientListPage from "./components/PatientListPage";
 import PatientInformationPage from "./components/PatientInformationPage";
+
+import patientService from "./services/patientService";
 import diagnosisService from "./services/diagnosisService";
 
 const App = () => {

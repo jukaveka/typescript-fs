@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Diagnosis, Patient } from "../types";
+import { Diagnosis, Patient } from "../../types";
 
-import PatientService from "../services/patientService";
+import PatientService from "../../services/patientService";
 
 import { Box, Container, Grid, Typography } from "@mui/material";
 
 import PatientInformation from "./PatientInformation";
-import PatientEntries from "./PatientEntries";
+import PatientEntry from "./PatientEntry";
 
 interface Props {
   diagnoses: Diagnosis[];
@@ -43,7 +43,11 @@ const PatientInformationPage = ({ diagnoses }: Props) => {
               Entries
             </Typography>
             <Box sx={{ padding: "20px" }}>
-              <PatientEntries entries={patient.entries} diagnoses={diagnoses} />
+              <>
+                {patient.entries.map((entry) => {
+                  return <PatientEntry entry={entry} diagnoses={diagnoses} />;
+                })}
+              </>
             </Box>
           </Grid>
         </Grid>

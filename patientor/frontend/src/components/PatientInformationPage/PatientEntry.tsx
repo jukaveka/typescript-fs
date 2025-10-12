@@ -1,12 +1,15 @@
+import { Diagnosis, Entry, healthCheckRating } from "../../types";
+
+import { assertNever } from "../../utils/assertNever";
+
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Typography,
 } from "@mui/material";
-import { Diagnosis, Entry } from "../types";
 import { ArrowDropDown } from "@mui/icons-material";
-import { assertNever } from "../utils/assertNever";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 interface Props {
   entry: Entry;
@@ -24,6 +27,43 @@ const PatientEntry = ({ entry, diagnoses }: Props) => {
         return <> Health checkup</>;
       default:
         return assertNever(type);
+    }
+  };
+
+  const renderHealthCheckRatingInformation = (
+    healthCheckRating: healthCheckRating
+  ) => {
+    switch (healthCheckRating) {
+      case 0:
+        return (
+          <>
+            <Typography> Healthy </Typography>{" "}
+            <FavoriteIcon sx={{ color: "green" }} />
+          </>
+        );
+      case 1:
+        return (
+          <>
+            <Typography> Low risk </Typography>{" "}
+            <FavoriteIcon sx={{ color: "yellow" }} />
+          </>
+        );
+      case 2:
+        return (
+          <>
+            <Typography> High risk </Typography>{" "}
+            <FavoriteIcon sx={{ color: "orange" }} />
+          </>
+        );
+      case 3:
+        return (
+          <>
+            <Typography> Low risk </Typography>{" "}
+            <FavoriteIcon sx={{ color: "red" }} />
+          </>
+        );
+      default:
+        return null;
     }
   };
 
@@ -49,7 +89,10 @@ const PatientEntry = ({ entry, diagnoses }: Props) => {
         return (
           <>
             <Typography variant="h6"> Health rating </Typography>
-            <Typography> {entry.healthCheckRating}</Typography>
+            <Typography>
+              {" "}
+              {renderHealthCheckRatingInformation(entry.healthCheckRating)}
+            </Typography>
           </>
         );
       default:
