@@ -28,16 +28,22 @@ const PatientInformation = ({ patient }: Props) => {
       <Typography variant="h4" sx={{ textAlign: "center" }}>
         Information
       </Typography>
+
       <br />
+
       <Paper sx={{ padding: "20px", lineHeight: "25px" }}>
         <Typography variant="h6"> Gender </Typography>
         <Typography>
           {patientGenderIcon()} {patient.gender}
         </Typography>
+
         <br />
+
         <Typography variant="h6"> SSN </Typography>
         <Typography> {patient.ssn} </Typography>
+
         <br />
+
         <Typography variant="h6"> Occupation </Typography>
         <Typography> {patient.occupation} </Typography>
       </Paper>

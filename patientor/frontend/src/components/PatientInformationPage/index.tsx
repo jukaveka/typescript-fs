@@ -5,10 +5,10 @@ import { Diagnosis, Patient } from "../../types";
 
 import PatientService from "../../services/patientService";
 
-import { Box, Container, Grid, Typography } from "@mui/material";
-
-import PatientInformation from "./PatientInformation";
+import PatientInformation from "./PatientInformationBox";
 import PatientEntry from "./PatientEntry";
+
+import { Box, Container, Grid, Typography } from "@mui/material";
 
 interface Props {
   diagnoses: Diagnosis[];
@@ -35,17 +35,26 @@ const PatientInformationPage = ({ diagnoses }: Props) => {
               {patient.name}
             </Typography>
           </Grid>
+
           <Grid item xs={6}>
             <PatientInformation patient={patient} />
           </Grid>
+
           <Grid item xs={6}>
             <Typography variant="h4" sx={{ textAlign: "center" }}>
               Entries
             </Typography>
+
             <Box sx={{ padding: "20px" }}>
               <>
                 {patient.entries.map((entry) => {
-                  return <PatientEntry entry={entry} diagnoses={diagnoses} />;
+                  return (
+                    <PatientEntry
+                      key={entry.id}
+                      entry={entry}
+                      diagnoses={diagnoses}
+                    />
+                  );
                 })}
               </>
             </Box>
