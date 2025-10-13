@@ -1,6 +1,6 @@
 import { Patient } from "../../types";
 
-import { Paper, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
 import TransgenderIcon from "@mui/icons-material/Transgender";
@@ -26,26 +26,35 @@ const PatientInformation = ({ patient }: Props) => {
   return (
     <>
       <Typography variant="h4" sx={{ textAlign: "center" }}>
-        Information
+        Patient information
       </Typography>
 
       <br />
 
-      <Paper sx={{ padding: "20px", lineHeight: "25px" }}>
-        <Typography variant="h6"> Gender </Typography>
-        <Typography>
-          {patientGenderIcon()} {patient.gender}
-        </Typography>
+      <Paper sx={{ padding: "20px", lineHeight: "25px", textAlign: "center" }}>
+        <Grid container>
+          <Grid xs={3}>
+            <Typography variant="h6"> Name </Typography>
+            <Typography> {patient.name} </Typography>
+          </Grid>
 
-        <br />
+          <Grid xs={3}>
+            <Typography variant="h6"> Gender </Typography>
+            <Typography>
+              {patientGenderIcon()} {patient.gender}
+            </Typography>
+          </Grid>
 
-        <Typography variant="h6"> SSN </Typography>
-        <Typography> {patient.ssn} </Typography>
+          <Grid xs={3}>
+            <Typography variant="h6"> SSN </Typography>
+            <Typography> {patient.ssn} </Typography>
+          </Grid>
 
-        <br />
-
-        <Typography variant="h6"> Occupation </Typography>
-        <Typography> {patient.occupation} </Typography>
+          <Grid xs={3}>
+            <Typography variant="h6"> Occupation </Typography>
+            <Typography> {patient.occupation} </Typography>
+          </Grid>
+        </Grid>
       </Paper>
     </>
   );

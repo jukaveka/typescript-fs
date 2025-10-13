@@ -9,6 +9,7 @@ import PatientInformation from "./PatientInformationBox";
 import PatientEntry from "./PatientEntry";
 
 import { Box, Container, Grid, Typography } from "@mui/material";
+import PatientEntryForm from "./PatientEntryForm";
 
 interface Props {
   diagnoses: Diagnosis[];
@@ -30,18 +31,22 @@ const PatientInformationPage = ({ diagnoses }: Props) => {
     <>
       <Container>
         <Grid container spacing={4}>
-          <Grid item xs={12} sx={{ padding: "50px" }}>
-            <Typography variant={"h3"} sx={{ textAlign: "center" }}>
-              {patient.name}
-            </Typography>
-          </Grid>
-
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <PatientInformation patient={patient} />
           </Grid>
 
           <Grid item xs={6}>
-            <Typography variant="h4" sx={{ textAlign: "center" }}>
+            <Typography variant="h5" sx={{ textAlign: "center" }}>
+              New entry
+            </Typography>
+
+            <Box sx={{ padding: "20px" }}>
+              <PatientEntryForm />
+            </Box>
+          </Grid>
+
+          <Grid item xs={6}>
+            <Typography variant="h5" sx={{ textAlign: "center" }}>
               Entries
             </Typography>
 
