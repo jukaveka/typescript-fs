@@ -12,29 +12,45 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import HospitalEntryForm from "./HospitalEntryForm";
+import patientService from "../../../services/patientService";
+import { Diagnosis, Patient } from "../../../types";
 
-const PatientEntryForm = () => {
+interface Props {
+  patientId: Patient["id"];
+}
+
+const PatientEntryForm = ({ patientId }: Props) => {
   const [activeStep, setActiveStep] = useState(0);
 
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
-  const [diagnosisCodes, setDiagnosisCodes] = useState("");
+  const [diagnosisCode, setDiagnosisCode] = useState("");
+  const [diagnosisCodes, setDiagnosisCodes] =
+    useState<Array<Diagnosis["code"]>>();
   const [specialist, setSpecialist] = useState("");
-  const [entryType, setEntryType] = useState("");
+  const [type, setType] = useState("");
 
   const [dischargeDate, setDischargeDate] = useState("");
   const [dischargeCriteria, setDischargeCriteria] = useState("");
 
   const handleNewEntry = () => {
-    console.log(
+    const newEntryData = {
       date,
       description,
       diagnosisCodes,
       specialist,
-      entryType,
-      dischargeDate,
-      dischargeCriteria
-    );
+      type,
+      discharge: {
+        date: dischargeDate,
+        criteria: dischargeCriteria,
+      },
+    };
+
+    try {
+      patientService.addEntry(patientId, newEntryData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleNext = () => {
@@ -43,6 +59,15 @@ const PatientEntryForm = () => {
 
   const handleStep = (targetStep: number) => {
     setActiveStep(targetStep);
+  };
+
+  const addDiagnosis = () => {
+    if (diagnosisCodes === undefined) {
+      setDiagnosisCodes([diagnosisCode]);
+    } else {
+      setDiagnosisCodes(diagnosisCodes?.concat(diagnosisCode));
+    }
+    setDiagnosisCode("");
   };
 
   return (
@@ -126,9 +151,14 @@ const PatientEntryForm = () => {
                     label="Diagnosis codes"
                     variant="standard"
                     id="new-entry-codes"
-                    value={diagnosisCodes}
-                    onChange={(event) => setDiagnosisCodes(event.target.value)}
+                    value={diagnosisCode}
+                    onChange={(event) => setDiagnosisCode(event.target.value)}
                   />
+                  <br /> <br />
+                  <Button variant="text" onClick={addDiagnosis}>
+                    {" "}
+                    Add
+                  </Button>
                   <br /> <br />
                   <Button variant="contained" onClick={handleNext}>
                     Next
@@ -147,8 +177,8 @@ const PatientEntryForm = () => {
                     label="Type of visit"
                     variant="standard"
                     id="new-entry-type"
-                    value={entryType}
-                    onChange={(event) => setEntryType(event.target.value)}
+                    value={type}
+                    onChange={(event) => setType(event.target.value)}
                   />
                   <br /> <br />
                   <HospitalEntryForm
@@ -157,7 +187,7 @@ const PatientEntryForm = () => {
                     dischargeCriteria={dischargeCriteria}
                     setDischargeCriteria={setDischargeCriteria}
                   />
-                  <br /> <nr />
+                  <br /> <br />
                   <Button variant="contained" onClick={handleNext}>
                     Review
                   </Button>

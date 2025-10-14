@@ -1,5 +1,5 @@
 import { TextField } from "@mui/material";
-import { Discharge } from "../../types";
+import { Discharge } from "../../../types";
 
 interface Props {
   dischargeDate: Discharge["date"];

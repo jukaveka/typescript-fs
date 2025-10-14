@@ -9,7 +9,7 @@ import PatientInformation from "./PatientInformationBox";
 import PatientEntry from "./PatientEntry";
 
 import { Box, Container, Grid, Typography } from "@mui/material";
-import PatientEntryForm from "./PatientEntryForm";
+import PatientEntryForm from "./PatientEntryForm/PatientEntryForm";
 
 interface Props {
   diagnoses: Diagnosis[];
@@ -41,7 +41,7 @@ const PatientInformationPage = ({ diagnoses }: Props) => {
             </Typography>
 
             <Box sx={{ padding: "20px" }}>
-              <PatientEntryForm />
+              <PatientEntryForm patientId={patient.id} />
             </Box>
           </Grid>
 
