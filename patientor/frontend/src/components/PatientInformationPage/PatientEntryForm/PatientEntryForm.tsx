@@ -20,6 +20,8 @@ import {
   Typography,
 } from "@mui/material";
 import HealthCheckEntryForm from "./HealthCheckEntryForm";
+import PatientEntryFormBasic from "./PatientEntryFormBasic";
+import PatientEntryFormDescription from "./PatientEntryFormDescription";
 
 interface Props {
   patientId: Patient["id"];
@@ -97,24 +99,15 @@ const PatientEntryForm = ({ patientId }: Props) => {
             <Stepper activeStep={activeStep} nonLinear orientation="vertical">
               <Step>
                 <StepButton onClick={() => handleStep(0)}>
-                  Basic information about visit
+                  Basic information
                 </StepButton>
 
                 <StepContent>
-                  <TextField
-                    label="Date"
-                    variant="standard"
-                    id="new-entry-date"
-                    value={date}
-                    onChange={(event) => setDate(event.target.value)}
-                  />
-                  <br />
-                  <TextField
-                    label="Specialist"
-                    variant="standard"
-                    id="new-entry-specialist"
-                    value={specialist}
-                    onChange={(event) => setSpecialist(event.target.value)}
+                  <PatientEntryFormBasic
+                    date={date}
+                    setDate={setDate}
+                    specialist={specialist}
+                    setSpecialist={setSpecialist}
                   />
                   <br />
                   <br />
@@ -130,29 +123,14 @@ const PatientEntryForm = ({ patientId }: Props) => {
                 </StepButton>
 
                 <StepContent>
-                  {" "}
-                  <Box>
-                    <Typography
-                      variant="subtitle1"
-                      sx={{ paddingBottom: "20px" }}
-                    >
-                      Describe the reason for visit, general talking points and
-                      any abnormalities you found
-                    </Typography>
-                    <TextField
-                      variant="outlined"
-                      id="new-entry-description"
-                      multiline
-                      rows={3}
-                      fullWidth
-                      value={description}
-                      onChange={(event) => setDescription(event.target.value)}
-                    />
-                    <br /> <br />
-                    <Button variant="contained" onClick={handleNext}>
-                      Next
-                    </Button>
-                  </Box>
+                  <PatientEntryFormDescription
+                    description={description}
+                    setDescription={setDescription}
+                  />
+                  <br /> <br />
+                  <Button variant="contained" onClick={handleNext}>
+                    Next
+                  </Button>
                 </StepContent>
               </Step>
 
