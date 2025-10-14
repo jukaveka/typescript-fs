@@ -33,24 +33,24 @@ const PatientInformation = ({ patient }: Props) => {
 
       <Paper sx={{ padding: "20px", lineHeight: "25px", textAlign: "center" }}>
         <Grid container>
-          <Grid xs={3}>
+          <Grid item={true} xs={3}>
             <Typography variant="h6"> Name </Typography>
             <Typography> {patient.name} </Typography>
           </Grid>
 
-          <Grid xs={3}>
+          <Grid item={true} xs={3}>
             <Typography variant="h6"> Gender </Typography>
             <Typography>
               {patientGenderIcon()} {patient.gender}
             </Typography>
           </Grid>
 
-          <Grid xs={3}>
+          <Grid item={true} xs={3}>
             <Typography variant="h6"> SSN </Typography>
             <Typography> {patient.ssn} </Typography>
           </Grid>
 
-          <Grid xs={3}>
+          <Grid item={true} xs={3}>
             <Typography variant="h6"> Occupation </Typography>
             <Typography> {patient.occupation} </Typography>
           </Grid>
