@@ -1,3 +1,12 @@
+import { useState } from "react";
+
+import { Diagnosis, Patient } from "../../../types";
+
+import patientService from "../../../services/patientService";
+
+import HospitalEntryForm from "./HospitalEntryForm";
+import OccupationalEntryForm from "./OccupationalEntryForm";
+
 import {
   Box,
   Button,
@@ -10,10 +19,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import HospitalEntryForm from "./HospitalEntryForm";
-import patientService from "../../../services/patientService";
-import { Diagnosis, Patient } from "../../../types";
 
 interface Props {
   patientId: Patient["id"];
@@ -33,6 +38,10 @@ const PatientEntryForm = ({ patientId }: Props) => {
   const [dischargeDate, setDischargeDate] = useState("");
   const [dischargeCriteria, setDischargeCriteria] = useState("");
 
+  const [employerName, setEmployerName] = useState("");
+  const [sickLeaveStartDate, setSickLeaveStartDate] = useState("");
+  const [sickLeaveEndDate, setSickLeaveEndDate] = useState("");
+
   const handleNewEntry = () => {
     const newEntryData = {
       date,
@@ -43,6 +52,11 @@ const PatientEntryForm = ({ patientId }: Props) => {
       discharge: {
         date: dischargeDate,
         criteria: dischargeCriteria,
+      },
+      employerName,
+      sickLeave: {
+        startDate: sickLeaveStartDate,
+        endDate: sickLeaveEndDate,
       },
     };
 
@@ -186,6 +200,15 @@ const PatientEntryForm = ({ patientId }: Props) => {
                     setDischargeDate={setDischargeDate}
                     dischargeCriteria={dischargeCriteria}
                     setDischargeCriteria={setDischargeCriteria}
+                  />
+                  <br /> <br />
+                  <OccupationalEntryForm
+                    employerName={employerName}
+                    setEmployerName={setEmployerName}
+                    sickLeaveStartDate={sickLeaveStartDate}
+                    setSickLeaveStartDate={setSickLeaveStartDate}
+                    sickLeaveEndDate={sickLeaveEndDate}
+                    setSickLeaveEndDate={setSickLeaveEndDate}
                   />
                   <br /> <br />
                   <Button variant="contained" onClick={handleNext}>
