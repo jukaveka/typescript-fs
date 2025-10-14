@@ -11,17 +11,30 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+import HospitalEntryForm from "./HospitalEntryForm";
 
 const PatientEntryForm = () => {
   const [activeStep, setActiveStep] = useState(0);
+
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [diagnosisCodes, setDiagnosisCodes] = useState("");
   const [specialist, setSpecialist] = useState("");
   const [entryType, setEntryType] = useState("");
 
+  const [dischargeDate, setDischargeDate] = useState("");
+  const [dischargeCriteria, setDischargeCriteria] = useState("");
+
   const handleNewEntry = () => {
-    console.log(date, description, diagnosisCodes, specialist, entryType);
+    console.log(
+      date,
+      description,
+      diagnosisCodes,
+      specialist,
+      entryType,
+      dischargeDate,
+      dischargeCriteria
+    );
   };
 
   const handleNext = () => {
@@ -138,6 +151,13 @@ const PatientEntryForm = () => {
                     onChange={(event) => setEntryType(event.target.value)}
                   />
                   <br /> <br />
+                  <HospitalEntryForm
+                    dischargeDate={dischargeDate}
+                    setDischargeDate={setDischargeDate}
+                    dischargeCriteria={dischargeCriteria}
+                    setDischargeCriteria={setDischargeCriteria}
+                  />
+                  <br /> <nr />
                   <Button variant="contained" onClick={handleNext}>
                     Review
                   </Button>
