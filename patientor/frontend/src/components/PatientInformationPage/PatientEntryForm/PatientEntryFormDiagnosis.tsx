@@ -23,10 +23,6 @@ const PatientEntryFormDiagnosis = ({
     }
     setDiagnosisCode("");
   };
-  /*
-  const handleDiagnosisSelection = (event: React.SyntheticEvent) => {
-    setDiagnosisCode(event.target.value);
-  };*/
 
   const renderAddedDiagnoses = () => {
     const addedDiagnoses = diagnoses.filter((diagnosis) =>
