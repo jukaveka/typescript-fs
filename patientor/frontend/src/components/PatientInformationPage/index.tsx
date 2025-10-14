@@ -41,7 +41,7 @@ const PatientInformationPage = ({ diagnoses }: Props) => {
             </Typography>
 
             <Box sx={{ padding: "20px" }}>
-              <PatientEntryForm patientId={patient.id} />
+              <PatientEntryForm patientId={patient.id} diagnoses={diagnoses} />
             </Box>
           </Grid>
 

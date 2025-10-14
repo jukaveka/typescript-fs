@@ -22,17 +22,18 @@ import {
 import HealthCheckEntryForm from "./HealthCheckEntryForm";
 import PatientEntryFormBasic from "./PatientEntryFormBasic";
 import PatientEntryFormDescription from "./PatientEntryFormDescription";
+import PatientEntryFormDiagnosis from "./PatientEntryFormDiagnosis";
 
 interface Props {
   patientId: Patient["id"];
+  diagnoses: Diagnosis[];
 }
 
-const PatientEntryForm = ({ patientId }: Props) => {
+const PatientEntryForm = ({ patientId, diagnoses }: Props) => {
   const [activeStep, setActiveStep] = useState(0);
 
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
-  const [diagnosisCode, setDiagnosisCode] = useState("");
   const [diagnosisCodes, setDiagnosisCodes] =
     useState<Array<Diagnosis["code"]>>();
   const [specialist, setSpecialist] = useState("");
@@ -80,15 +81,6 @@ const PatientEntryForm = ({ patientId }: Props) => {
 
   const handleStep = (targetStep: number) => {
     setActiveStep(targetStep);
-  };
-
-  const addDiagnosis = () => {
-    if (diagnosisCodes === undefined) {
-      setDiagnosisCodes([diagnosisCode]);
-    } else {
-      setDiagnosisCodes(diagnosisCodes?.concat(diagnosisCode));
-    }
-    setDiagnosisCode("");
   };
 
   return (
@@ -140,22 +132,11 @@ const PatientEntryForm = ({ patientId }: Props) => {
                 </StepButton>
 
                 <StepContent>
-                  <Typography variant="subtitle1">
-                    Write diagnosis codes of issues you found during the
-                    examination
-                  </Typography>
-                  <TextField
-                    label="Diagnosis codes"
-                    variant="standard"
-                    id="new-entry-codes"
-                    value={diagnosisCode}
-                    onChange={(event) => setDiagnosisCode(event.target.value)}
+                  <PatientEntryFormDiagnosis
+                    diagnoses={diagnoses}
+                    diagnosisCodes={diagnosisCodes}
+                    setDiagnosisCodes={setDiagnosisCodes}
                   />
-                  <br /> <br />
-                  <Button variant="text" onClick={addDiagnosis}>
-                    {" "}
-                    Add
-                  </Button>
                   <br /> <br />
                   <Button variant="contained" onClick={handleNext}>
                     Next
