@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Diagnosis, Patient } from "../../../types";
+import { Diagnosis, healthCheckRating, Patient } from "../../../types";
 
 import patientService from "../../../services/patientService";
 
@@ -19,6 +19,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import HealthCheckEntryForm from "./HealthCheckEntryForm";
 
 interface Props {
   patientId: Patient["id"];
@@ -42,6 +43,9 @@ const PatientEntryForm = ({ patientId }: Props) => {
   const [sickLeaveStartDate, setSickLeaveStartDate] = useState("");
   const [sickLeaveEndDate, setSickLeaveEndDate] = useState("");
 
+  const [healthCheckRating, setHealthCheckRating] =
+    useState<healthCheckRating>(0);
+
   const handleNewEntry = () => {
     const newEntryData = {
       date,
@@ -58,6 +62,7 @@ const PatientEntryForm = ({ patientId }: Props) => {
         startDate: sickLeaveStartDate,
         endDate: sickLeaveEndDate,
       },
+      healthCheckRating,
     };
 
     try {
@@ -211,6 +216,10 @@ const PatientEntryForm = ({ patientId }: Props) => {
                     setSickLeaveEndDate={setSickLeaveEndDate}
                   />
                   <br /> <br />
+                  <HealthCheckEntryForm
+                    healthCheckRating={healthCheckRating}
+                    setHealthCheckRating={setHealthCheckRating}
+                  />
                   <Button variant="contained" onClick={handleNext}>
                     Review
                   </Button>
