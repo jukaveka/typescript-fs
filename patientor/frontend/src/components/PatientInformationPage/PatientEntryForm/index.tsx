@@ -1,25 +1,26 @@
 import { useState } from "react";
 
-import { Diagnosis, healthCheckRating, Patient } from "../../../types";
+import { Diagnosis, Entry, healthCheckRating, Patient } from "../../../types";
 
 import patientService from "../../../services/patientService";
 
-import HospitalEntryForm from "./HospitalEntryForm";
-import OccupationalEntryForm from "./OccupationalEntryForm";
+import HospitalEntryForm from "./HospitalEntryFields";
+import OccupationalEntryForm from "./OccupationalEntryFields";
 
 import {
   Box,
   Button,
   Container,
+  MenuItem,
   Paper,
+  Select,
   Step,
   StepButton,
   StepContent,
   Stepper,
-  TextField,
   Typography,
 } from "@mui/material";
-import HealthCheckEntryForm from "./HealthCheckEntryForm";
+import HealthCheckEntryForm from "./HealthCheckEntryFields";
 import PatientEntryFormBasic from "./PatientEntryFormBasic";
 import PatientEntryFormDescription from "./PatientEntryFormDescription";
 import PatientEntryFormDiagnosis from "./PatientEntryFormDiagnosis";
@@ -29,6 +30,21 @@ interface Props {
   diagnoses: Diagnosis[];
 }
 
+const entryTypes = [
+  {
+    value: "Hospital",
+    label: "Hospital",
+  },
+  {
+    value: "OccupationalHealthcare",
+    label: "Occupational healthcare",
+  },
+  {
+    value: "HealthCheck",
+    label: "Health check",
+  },
+];
+
 const PatientEntryForm = ({ patientId, diagnoses }: Props) => {
   const [activeStep, setActiveStep] = useState(0);
 
@@ -37,7 +53,7 @@ const PatientEntryForm = ({ patientId, diagnoses }: Props) => {
   const [diagnosisCodes, setDiagnosisCodes] =
     useState<Array<Diagnosis["code"]>>();
   const [specialist, setSpecialist] = useState("");
-  const [type, setType] = useState("");
+  const [type, setType] = useState<Entry["type"]>("");
 
   const [dischargeDate, setDischargeDate] = useState("");
   const [dischargeCriteria, setDischargeCriteria] = useState("");
@@ -81,6 +97,40 @@ const PatientEntryForm = ({ patientId, diagnoses }: Props) => {
 
   const handleStep = (targetStep: number) => {
     setActiveStep(targetStep);
+  };
+
+  const renderTypeSpecificFields = () => {
+    switch (type) {
+      case "Hospital":
+        return (
+          <HospitalEntryForm
+            dischargeDate={dischargeDate}
+            setDischargeDate={setDischargeDate}
+            dischargeCriteria={dischargeCriteria}
+            setDischargeCriteria={setDischargeCriteria}
+          />
+        );
+      case "OccupationalHealthcare":
+        return (
+          <OccupationalEntryForm
+            employerName={employerName}
+            setEmployerName={setEmployerName}
+            sickLeaveStartDate={sickLeaveStartDate}
+            setSickLeaveStartDate={setSickLeaveStartDate}
+            sickLeaveEndDate={sickLeaveEndDate}
+            setSickLeaveEndDate={setSickLeaveEndDate}
+          />
+        );
+      case "HealthCheck":
+        return (
+          <HealthCheckEntryForm
+            healthCheckRating={healthCheckRating}
+            setHealthCheckRating={setHealthCheckRating}
+          />
+        );
+      default:
+        return null;
+    }
   };
 
   return (
@@ -150,35 +200,28 @@ const PatientEntryForm = ({ patientId, diagnoses }: Props) => {
                 </StepButton>
 
                 <StepContent>
-                  <Typography variant="h6">Entry type</Typography>
-                  <TextField
-                    label="Type of visit"
-                    variant="standard"
-                    id="new-entry-type"
+                  <Typography variant="subtitle1">
+                    Select the type of visit and fill the required fields
+                  </Typography>
+                  <Select
+                    id="new-entry-diagnosis-codes"
+                    fullWidth
                     value={type}
                     onChange={(event) => setType(event.target.value)}
-                  />
-                  <br /> <br />
-                  <HospitalEntryForm
-                    dischargeDate={dischargeDate}
-                    setDischargeDate={setDischargeDate}
-                    dischargeCriteria={dischargeCriteria}
-                    setDischargeCriteria={setDischargeCriteria}
-                  />
-                  <br /> <br />
-                  <OccupationalEntryForm
-                    employerName={employerName}
-                    setEmployerName={setEmployerName}
-                    sickLeaveStartDate={sickLeaveStartDate}
-                    setSickLeaveStartDate={setSickLeaveStartDate}
-                    sickLeaveEndDate={sickLeaveEndDate}
-                    setSickLeaveEndDate={setSickLeaveEndDate}
-                  />
-                  <br /> <br />
-                  <HealthCheckEntryForm
-                    healthCheckRating={healthCheckRating}
-                    setHealthCheckRating={setHealthCheckRating}
-                  />
+                  >
+                    {entryTypes.map((type) => (
+                      <MenuItem
+                        key={`entry-type-${type.value}`}
+                        value={type.value}
+                      >
+                        {type.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <br />
+
+                  {renderTypeSpecificFields()}
+
                   <Button variant="contained" onClick={handleNext}>
                     Review
                   </Button>

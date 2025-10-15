@@ -1,6 +1,6 @@
 import React from "react";
 import { healthCheckRating } from "../../../types";
-import { Slider } from "@mui/material";
+import { Box, Slider } from "@mui/material";
 
 interface Props {
   healthCheckRating: healthCheckRating;
@@ -37,14 +37,16 @@ const HealthCheckEntryForm = ({
   };
 
   return (
-    <Slider
-      defaultValue={0}
-      value={healthCheckRating}
-      onChange={handleChange}
-      marks={healthCheckRatingMarks}
-      min={0}
-      max={3}
-    />
+    <Box sx={{ padding: "20px" }}>
+      <Slider
+        defaultValue={0}
+        value={healthCheckRating}
+        onChange={handleChange}
+        marks={healthCheckRatingMarks}
+        min={0}
+        max={3}
+      />
+    </Box>
   );
 };
 
