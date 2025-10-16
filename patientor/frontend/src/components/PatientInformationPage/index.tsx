@@ -7,9 +7,9 @@ import PatientService from "../../services/patientService";
 
 import PatientInformation from "./PatientInformationBox";
 import PatientEntry from "./PatientEntry";
+import PatientEntryForm from "./PatientEntryForm";
 
 import { Box, Container, Grid, Typography } from "@mui/material";
-import PatientEntryForm from "./PatientEntryForm";
 
 interface Props {
   diagnoses: Diagnosis[];

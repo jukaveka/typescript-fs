@@ -72,4 +72,9 @@ export interface Patient {
 
 export type PatientFormValues = Omit<Patient, "id" | "entries">;
 
-export type EntryFormValues = UnionOmit<Entry, "id">;
+export type EntryFormValues =
+  | UnionOmit<HospitalEntry, "id">
+  | UnionOmit<OccupationalHealthCareEntry, "id">
+  | UnionOmit<HealthCheckEntry, "id">;
+
+export type DiagnosisDisplay = "Text" | "MenuItem";

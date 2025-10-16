@@ -6,6 +6,11 @@ import patientService from "../../../services/patientService";
 
 import HospitalEntryForm from "./HospitalEntryFields";
 import OccupationalEntryForm from "./OccupationalEntryFields";
+import HealthCheckEntryForm from "./HealthCheckEntryFields";
+import PatientEntryFormBasic from "./PatientEntryFormBasic";
+import PatientEntryFormDescription from "./PatientEntryFormDescription";
+import PatientEntryFormDiagnosis from "./PatientEntryFormDiagnosis";
+import PatientEntryFormReview from "./PatientEntryFormReview";
 
 import {
   Box,
@@ -20,10 +25,6 @@ import {
   Stepper,
   Typography,
 } from "@mui/material";
-import HealthCheckEntryForm from "./HealthCheckEntryFields";
-import PatientEntryFormBasic from "./PatientEntryFormBasic";
-import PatientEntryFormDescription from "./PatientEntryFormDescription";
-import PatientEntryFormDiagnosis from "./PatientEntryFormDiagnosis";
 
 interface Props {
   patientId: Patient["id"];
@@ -65,24 +66,26 @@ const PatientEntryForm = ({ patientId, diagnoses }: Props) => {
   const [healthCheckRating, setHealthCheckRating] =
     useState<healthCheckRating>(0);
 
+  const formValues = {
+    date,
+    description,
+    diagnosisCodes,
+    specialist,
+    type,
+    discharge: {
+      date: dischargeDate,
+      criteria: dischargeCriteria,
+    },
+    employerName,
+    sickLeave: {
+      startDate: sickLeaveStartDate,
+      endDate: sickLeaveEndDate,
+    },
+    healthCheckRating,
+  };
+
   const handleNewEntry = () => {
-    const newEntryData = {
-      date,
-      description,
-      diagnosisCodes,
-      specialist,
-      type,
-      discharge: {
-        date: dischargeDate,
-        criteria: dischargeCriteria,
-      },
-      employerName,
-      sickLeave: {
-        startDate: sickLeaveStartDate,
-        endDate: sickLeaveEndDate,
-      },
-      healthCheckRating,
-    };
+    const newEntryData = formValues;
 
     try {
       patientService.addEntry(patientId, newEntryData);
@@ -233,6 +236,8 @@ const PatientEntryForm = ({ patientId, diagnoses }: Props) => {
                   Review entry and submit
                 </StepButton>
                 <StepContent>
+                  <PatientEntryFormReview formValues={formValues} />
+                  <br /> <br />
                   <Button variant="contained" onClick={handleNewEntry}>
                     Submit
                   </Button>
