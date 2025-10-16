@@ -1,8 +1,8 @@
-import { Diagnosis, Entry } from "../../../types";
+import { Entry } from "../../../types";
 
 import PatientEntryHeader from "./PatientEntryHeader";
-import PatientEntryDiagnosis from "./PatientEntryDiagnosis";
 import PatientEntryTypeDetails from "./PatientEntryTypeDetails";
+import DiagnosisList from "../DiagnosisList";
 
 import {
   Accordion,
@@ -14,10 +14,9 @@ import { ArrowDropDown } from "@mui/icons-material";
 
 interface Props {
   entry: Entry;
-  diagnoses: Diagnosis[];
 }
 
-const PatientEntry = ({ entry, diagnoses }: Props) => {
+const PatientEntry = ({ entry }: Props) => {
   return (
     <>
       <Accordion>
@@ -40,14 +39,13 @@ const PatientEntry = ({ entry, diagnoses }: Props) => {
             <Typography variant="h6"> Description </Typography>
             <Typography> {entry.description} </Typography>
           </div>
-
-          <br />
-
           <div>
-            <PatientEntryDiagnosis
-              entryCodes={entry.diagnosisCodes}
-              diagnoses={diagnoses}
-            />
+            {entry.diagnosisCodes === undefined ? null : (
+              <>
+                <Typography variant="h6"> Diagnosis </Typography>
+                <DiagnosisList diagnosisCodes={entry.diagnosisCodes} />
+              </>
+            )}
           </div>
         </AccordionDetails>
       </Accordion>

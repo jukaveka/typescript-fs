@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Diagnosis, Patient } from "../../types";
+import { Patient } from "../../types";
 
 import PatientService from "../../services/patientService";
 
@@ -11,11 +11,7 @@ import PatientEntryForm from "./PatientEntryForm";
 
 import { Box, Container, Grid, Typography } from "@mui/material";
 
-interface Props {
-  diagnoses: Diagnosis[];
-}
-
-const PatientInformationPage = ({ diagnoses }: Props) => {
+const PatientInformationPage = () => {
   const { id } = useParams();
   const [patient, setPatient] = useState<Patient>();
 
@@ -41,7 +37,7 @@ const PatientInformationPage = ({ diagnoses }: Props) => {
             </Typography>
 
             <Box sx={{ padding: "20px" }}>
-              <PatientEntryForm patientId={patient.id} diagnoses={diagnoses} />
+              <PatientEntryForm patientId={patient.id} />
             </Box>
           </Grid>
 
@@ -53,13 +49,7 @@ const PatientInformationPage = ({ diagnoses }: Props) => {
             <Box sx={{ padding: "20px" }}>
               <>
                 {patient.entries.map((entry) => {
-                  return (
-                    <PatientEntry
-                      key={entry.id}
-                      entry={entry}
-                      diagnoses={diagnoses}
-                    />
-                  );
+                  return <PatientEntry key={entry.id} entry={entry} />;
                 })}
               </>
             </Box>

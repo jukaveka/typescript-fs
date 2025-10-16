@@ -1,5 +1,6 @@
 import { Typography } from "@mui/material";
 import { EntryFormValues } from "../../../types";
+import DiagnosisList from "../DiagnosisList";
 
 interface Props {
   formValues: EntryFormValues;
@@ -59,11 +60,7 @@ const PatientEntryFormReview = ({ formValues }: Props) => {
       {formValues.diagnosisCodes === undefined ? (
         <Typography> No diagnosis added </Typography>
       ) : (
-        formValues.diagnosisCodes?.map((diagnosis) => (
-          <Typography>
-            <b> {diagnosis} </b>
-          </Typography>
-        ))
+        <DiagnosisList diagnosisCodes={formValues.diagnosisCodes} />
       )}
       <br /> <br />
       <Typography variant="subtitle1">

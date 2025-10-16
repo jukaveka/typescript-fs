@@ -28,7 +28,6 @@ import {
 
 interface Props {
   patientId: Patient["id"];
-  diagnoses: Diagnosis[];
 }
 
 const entryTypes = [
@@ -46,7 +45,7 @@ const entryTypes = [
   },
 ];
 
-const PatientEntryForm = ({ patientId, diagnoses }: Props) => {
+const PatientEntryForm = ({ patientId }: Props) => {
   const [activeStep, setActiveStep] = useState(0);
 
   const [date, setDate] = useState("");
@@ -186,7 +185,6 @@ const PatientEntryForm = ({ patientId, diagnoses }: Props) => {
 
                 <StepContent>
                   <PatientEntryFormDiagnosis
-                    diagnoses={diagnoses}
                     diagnosisCodes={diagnosisCodes}
                     setDiagnosisCodes={setDiagnosisCodes}
                   />
