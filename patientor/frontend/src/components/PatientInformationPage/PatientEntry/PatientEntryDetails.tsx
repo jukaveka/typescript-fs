@@ -1,16 +1,15 @@
-import { Diagnosis, Entry } from "../../../types";
+import { Entry } from "../../../types";
 
 import PatientEntryTypeDetails from "./PatientEntryTypeDetails";
-import PatientEntryDiagnosis from "./PatientEntryDiagnosis";
 
 import { Typography } from "@mui/material";
+import DiagnosisList from "../DiagnosisList";
 
 interface Props {
   entry: Entry;
-  diagnoses: Diagnosis[];
 }
 
-const PatientEntryDetails = ({ entry, diagnoses }: Props) => {
+const PatientEntryDetails = ({ entry }: Props) => {
   return (
     <>
       <div>
@@ -27,10 +26,8 @@ const PatientEntryDetails = ({ entry, diagnoses }: Props) => {
       <br />
 
       <div>
-        <PatientEntryDiagnosis
-          entryCodes={entry.diagnosisCodes}
-          diagnoses={diagnoses}
-        />
+        <DiagnosisList diagnosisCodes={entry.diagnosisCodes} />
+        <Typography> EntryDetails.tsx </Typography>
       </div>
     </>
   );
