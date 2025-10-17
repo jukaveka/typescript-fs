@@ -27,8 +27,6 @@ const OccupationalEntryDetails = ({ entry }: Props) => {
       <Typography variant="h6"> Employer </Typography>
       <Typography> {entry.employerName} </Typography>
 
-      <br />
-
       {renderSickLeave(entry.sickLeave)}
     </>
   );

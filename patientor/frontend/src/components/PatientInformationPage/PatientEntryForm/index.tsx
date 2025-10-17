@@ -134,7 +134,6 @@ const PatientEntryForm = ({ patientId }: Props) => {
         return null;
     }
   };
-
   return (
     <Paper sx={{ padding: "20px", lineHeight: "25px" }}>
       <Container>
@@ -205,21 +204,29 @@ const PatientEntryForm = ({ patientId }: Props) => {
                     Select the type of visit and fill the required fields
                   </Typography>
                   <Select
-                    id="new-entry-diagnosis-codes"
+                    id="new-entry-type"
                     fullWidth
                     value={type}
-                    onChange={(event) => setType(event.target.value)}
+                    onChange={(event) =>
+                      setType(event.target.value as Entry["type"])
+                    }
                   >
-                    {entryTypes.map((type) => (
-                      <MenuItem
-                        key={`entry-type-${type.value}`}
-                        value={type.value}
-                      >
-                        {type.label}
-                      </MenuItem>
-                    ))}
+                    <MenuItem key={`entry-type-hospital`} value={"Hospital"}>
+                      Hospital
+                    </MenuItem>
+                    <MenuItem
+                      key={`entry-type-occupational`}
+                      value={"OccupationalHealthcare"}
+                    >
+                      Occupational healthcare
+                    </MenuItem>
+                    <MenuItem
+                      key={`entry-type-healthcheck`}
+                      value={"HealthCheck"}
+                    >
+                      Health check
+                    </MenuItem>
                   </Select>
-                  <br />
 
                   {renderTypeSpecificFields()}
 
@@ -235,7 +242,6 @@ const PatientEntryForm = ({ patientId }: Props) => {
                 </StepButton>
                 <StepContent>
                   <PatientEntryFormReview formValues={formValues} />
-                  <br /> <br />
                   <Button variant="contained" onClick={handleNewEntry}>
                     Submit
                   </Button>

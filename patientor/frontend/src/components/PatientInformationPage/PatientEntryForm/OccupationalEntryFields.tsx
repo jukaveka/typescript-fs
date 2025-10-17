@@ -28,9 +28,6 @@ const OccupationalEntryForm = ({
         onChange={(event) => setEmployerName(event.target.value)}
       />
 
-      <br />
-      <br />
-
       <TextField
         label="Sick leave starts at"
         id="new-entry-sick-leave-start"
@@ -38,9 +35,6 @@ const OccupationalEntryForm = ({
         value={sickLeaveStartDate}
         onChange={(event) => setSickLeaveStartDate(event.target.value)}
       />
-
-      <br />
-      <br />
 
       <TextField
         label="Sick leave ends at"

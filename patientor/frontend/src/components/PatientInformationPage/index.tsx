@@ -9,7 +9,13 @@ import PatientInformation from "./PatientInformationBox";
 import PatientEntry from "./PatientEntry";
 import PatientEntryForm from "./PatientEntryForm";
 
-import { Box, Container, Grid, Typography } from "@mui/material";
+import {
+  Container,
+  createTheme,
+  Grid,
+  ThemeProvider,
+  Typography,
+} from "@mui/material";
 
 const PatientInformationPage = () => {
   const { id } = useParams();
@@ -23,6 +29,36 @@ const PatientInformationPage = () => {
 
   if (!patient) return null;
 
+  const theme = createTheme({
+    components: {
+      MuiButton: {
+        defaultProps: {
+          style: { margin: "20px 0px" },
+        },
+      },
+      MuiTextField: {
+        defaultProps: {
+          style: { margin: "10px" },
+        },
+      },
+      MuiTypography: {
+        defaultProps: {
+          style: { margin: "10px 0px" },
+        },
+      },
+      MuiSlider: {
+        defaultProps: {
+          style: { margin: "25px", width: "90%" },
+        },
+      },
+      MuiSelect: {
+        defaultProps: {
+          style: { margin: "10px 0px" },
+        },
+      },
+    },
+  });
+
   return (
     <>
       <Container>
@@ -31,29 +67,27 @@ const PatientInformationPage = () => {
             <PatientInformation patient={patient} />
           </Grid>
 
-          <Grid item xs={6}>
-            <Typography variant="h5" sx={{ textAlign: "center" }}>
-              New entry
-            </Typography>
+          <ThemeProvider theme={theme}>
+            <Grid item xs={6}>
+              <Typography variant="h5" sx={{ textAlign: "center" }}>
+                New entry
+              </Typography>
 
-            <Box sx={{ padding: "20px" }}>
               <PatientEntryForm patientId={patient.id} />
-            </Box>
-          </Grid>
+            </Grid>
 
-          <Grid item xs={6}>
-            <Typography variant="h5" sx={{ textAlign: "center" }}>
-              Entries
-            </Typography>
+            <Grid item xs={6}>
+              <Typography variant="h5" sx={{ textAlign: "center" }}>
+                Entries
+              </Typography>
 
-            <Box sx={{ padding: "20px" }}>
               <>
                 {patient.entries.map((entry) => {
                   return <PatientEntry key={entry.id} entry={entry} />;
                 })}
               </>
-            </Box>
-          </Grid>
+            </Grid>
+          </ThemeProvider>
         </Grid>
       </Container>
     </>

@@ -12,23 +12,17 @@ interface Props {
 const PatientEntryDetails = ({ entry }: Props) => {
   return (
     <>
-      <div>
-        <PatientEntryTypeDetails entry={entry} />
-      </div>
+      <PatientEntryTypeDetails entry={entry} />
 
-      <br />
+      <Typography variant="h6"> Description </Typography>
+      <Typography> {entry.description} </Typography>
 
-      <div>
-        <Typography variant="h6"> Description </Typography>
-        <Typography> {entry.description} </Typography>
-      </div>
-
-      <br />
-
-      <div>
-        <DiagnosisList diagnosisCodes={entry.diagnosisCodes} />
-        <Typography> EntryDetails.tsx </Typography>
-      </div>
+      {entry.diagnosisCodes === undefined ? null : (
+        <>
+          <Typography variant="h6"> Diagnosis</Typography>
+          <DiagnosisList diagnosisCodes={entry.diagnosisCodes} />
+        </>
+      )}
     </>
   );
 };

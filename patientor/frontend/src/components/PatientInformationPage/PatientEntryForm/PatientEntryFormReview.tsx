@@ -33,27 +33,27 @@ const PatientEntryFormReview = ({ formValues }: Props) => {
       <Typography variant="subtitle1">
         Review the information you've added.
       </Typography>
-      <br />
+
       <Typography variant="subtitle1">
         If you notice typos, mistakes or other issues, go back and make
         appropriate changes
       </Typography>
-      <br />
+
       <Typography variant="subtitle1">
         Submit if all of the information given is correct
       </Typography>
-      <br />
+
       <Typography variant="subtitle1">
         <b>Basic information</b>
       </Typography>
       <Typography> Date - {formValues.date} </Typography>
       <Typography> Specialist - {formValues.specialist} </Typography>
-      <br />
+
       <Typography variant="subtitle1">
         <b>Description</b>
       </Typography>
       <Typography> {formValues.description} </Typography>
-      <br />
+
       <Typography variant="subtitle1">
         <b> Diagnosis</b>
       </Typography>
@@ -62,7 +62,7 @@ const PatientEntryFormReview = ({ formValues }: Props) => {
       ) : (
         <DiagnosisList diagnosisCodes={formValues.diagnosisCodes} />
       )}
-      <br /> <br />
+
       <Typography variant="subtitle1">
         <b> Type-related information </b>
       </Typography>

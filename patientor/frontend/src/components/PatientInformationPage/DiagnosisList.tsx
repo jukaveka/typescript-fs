@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Diagnosis } from "../../types";
 import diagnosisService from "../../services/diagnosisService";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 interface Props {
   diagnosisCodes: Array<Diagnosis["code"]> | undefined;
@@ -24,13 +24,13 @@ const DiagnosisList = ({ diagnosisCodes }: Props) => {
   );
 
   return (
-    <Box sx={{ padding: "20px 0px" }}>
+    <>
       {visibleDiagnoses.map((diagnosis) => (
         <Typography key={`diagnosis-${diagnosis.code}`}>
           <b>{diagnosis.code}</b> - {diagnosis.name}
         </Typography>
       ))}
-    </Box>
+    </>
   );
 };
 

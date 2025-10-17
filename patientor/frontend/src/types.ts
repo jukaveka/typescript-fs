@@ -51,7 +51,7 @@ export interface Discharge {
 }
 
 export interface HospitalEntry extends BaseEntry {
-  type: "Hospital" | string;
+  type: "Hospital";
   discharge: Discharge;
 }
 

@@ -24,9 +24,6 @@ const HospitalEntryForm = ({
         onChange={(event) => setDischargeDate(event.target.value)}
       />
 
-      <br />
-      <br />
-
       <TextField
         label="Criteria for discharge"
         id="new-entry-discharge-criteria"
