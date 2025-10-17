@@ -1,14 +1,12 @@
 import React from "react";
 
-import { HealhtCheckEntryFields, healthCheckRating } from "../../../types";
+import { EntryFormFields, healthCheckRating } from "../../../../types";
 
 import { Slider, Typography } from "@mui/material";
 
 interface Props {
-  healthCheckEntryFields: HealhtCheckEntryFields;
-  setHealthCheckEntryFields: React.Dispatch<
-    React.SetStateAction<healthCheckRating>
-  >;
+  entryFormFields: EntryFormFields;
+  setEntryFormFields: React.Dispatch<React.SetStateAction<EntryFormFields>>;
 }
 
 const HealthCheckMarks = Object.entries(healthCheckRating)
@@ -23,13 +21,13 @@ const HealthCheckMarks = Object.entries(healthCheckRating)
     };
   });
 
-const HealthCheckEntryForm = ({
-  healthCheckEntryFields,
-  setHealthCheckEntryFields,
+const HealthCheckEntryFields = ({
+  entryFormFields,
+  setEntryFormFields,
 }: Props) => {
   const handleChange = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {
-      setHealthCheckEntryFields(newValue);
+      setEntryFormFields({ ...entryFormFields, healthCheckRating: newValue });
     }
   };
 
@@ -39,7 +37,7 @@ const HealthCheckEntryForm = ({
         Select appropriate health rating for patient based on your examination
       </Typography>
       <Slider
-        value={healthCheckEntryFields}
+        value={entryFormFields.healthCheckRating}
         onChange={handleChange}
         marks={HealthCheckMarks}
         min={0}
@@ -49,4 +47,4 @@ const HealthCheckEntryForm = ({
   );
 };
 
-export default HealthCheckEntryForm;
+export default HealthCheckEntryFields;

@@ -5,23 +5,20 @@ import DiagnosisList from "../DiagnosisList";
 import { Typography } from "@mui/material";
 
 interface Props {
-  formValues: EntryFormFields;
+  entryFormFields: EntryFormFields;
 }
 
-const PatientEntryFormReview = ({ formValues }: Props) => {
-  const { baseFields, hospitalFields, occupationalFields, healthCheckFields } =
-    formValues;
-
+const FormReview = ({ entryFormFields }: Props) => {
   const renderTypeSpecificFields = () => {
-    console.log(formValues);
+    console.log(entryFormFields);
   };
 
   const reviewNotReady = () => {
     return (
-      !baseFields.date ||
-      !baseFields.specialist ||
-      !baseFields.description ||
-      !baseFields.type
+      !entryFormFields.date ||
+      !entryFormFields.specialist ||
+      !entryFormFields.description ||
+      !entryFormFields.type
     );
   };
 
@@ -51,21 +48,21 @@ const PatientEntryFormReview = ({ formValues }: Props) => {
       <Typography variant="subtitle1">
         <b>Basic information</b>
       </Typography>
-      <Typography> Date - {baseFields.date} </Typography>
-      <Typography> Specialist - {baseFields.specialist} </Typography>
+      <Typography> Date - {entryFormFields.date} </Typography>
+      <Typography> Specialist - {entryFormFields.specialist} </Typography>
 
       <Typography variant="subtitle1">
         <b>Description</b>
       </Typography>
-      <Typography> {baseFields.description} </Typography>
+      <Typography> {entryFormFields.description} </Typography>
 
       <Typography variant="subtitle1">
         <b> Diagnosis</b>
       </Typography>
-      {baseFields.diagnosisCodes === undefined ? (
+      {entryFormFields.diagnosisCodes === undefined ? (
         <Typography> No diagnosis added </Typography>
       ) : (
-        <DiagnosisList diagnosisCodes={baseFields.diagnosisCodes} />
+        <DiagnosisList diagnosisCodes={entryFormFields.diagnosisCodes} />
       )}
 
       <Typography variant="subtitle1">
@@ -76,4 +73,4 @@ const PatientEntryFormReview = ({ formValues }: Props) => {
   );
 };
 
-export default PatientEntryFormReview;
+export default FormReview;

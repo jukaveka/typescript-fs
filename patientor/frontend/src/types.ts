@@ -85,11 +85,12 @@ export type OccupationalEntryFields = Pick<
   "employerName" | "sickLeave"
 >;
 
-export type HealhtCheckEntryFields = healthCheckRating;
+export type HealthCheckEntryFields = Pick<
+  HealthCheckEntry,
+  "healthCheckRating"
+>;
 
-export interface EntryFormFields {
-  baseFields: BaseEntryFields;
-  hospitalFields: HospitalEntryFields;
-  occupationalFields: OccupationalEntryFields;
-  healthCheckFields: HealhtCheckEntryFields;
-}
+export type EntryFormFields = BaseEntryFields &
+  HospitalEntryFields &
+  OccupationalEntryFields &
+  HealthCheckEntryFields;

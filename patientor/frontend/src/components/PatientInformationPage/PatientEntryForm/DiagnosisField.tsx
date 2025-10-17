@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BaseEntryFields } from "../../../types";
+import { EntryFormFields } from "../../../types";
 
 import DiagnosisList from "../DiagnosisList";
 import DiagnosisPicker from "./DiagnosisPicker";
@@ -8,21 +8,18 @@ import DiagnosisPicker from "./DiagnosisPicker";
 import { Typography } from "@mui/material";
 
 interface Props {
-  baseEntryFields: BaseEntryFields;
-  setBaseEntryFields: React.Dispatch<React.SetStateAction<BaseEntryFields>>;
+  entryFormFields: EntryFormFields;
+  setEntryFormFields: React.Dispatch<React.SetStateAction<EntryFormFields>>;
 }
 
-const PatientEntryFormDiagnosis = ({
-  baseEntryFields,
-  setBaseEntryFields,
-}: Props) => {
+const DiagnosisField = ({ entryFormFields, setEntryFormFields }: Props) => {
   const handleNewDiagnosisCode = (newValue: string) => {
-    if (baseEntryFields.diagnosisCodes === undefined) {
-      setBaseEntryFields({ ...baseEntryFields, diagnosisCodes: [newValue] });
+    if (entryFormFields.diagnosisCodes === undefined) {
+      setEntryFormFields({ ...entryFormFields, diagnosisCodes: [newValue] });
     } else {
-      const newDiagnosisCodes = baseEntryFields.diagnosisCodes.concat(newValue);
-      setBaseEntryFields({
-        ...baseEntryFields,
+      const newDiagnosisCodes = entryFormFields.diagnosisCodes.concat(newValue);
+      setEntryFormFields({
+        ...entryFormFields,
         diagnosisCodes: newDiagnosisCodes,
       });
     }
@@ -34,11 +31,11 @@ const PatientEntryFormDiagnosis = ({
         you examination. Choose diagnosis and press "Add" for each diagnosis
         separately.
       </Typography>
-      <DiagnosisList diagnosisCodes={baseEntryFields.diagnosisCodes} />
+      <DiagnosisList diagnosisCodes={entryFormFields.diagnosisCodes} />
 
       <DiagnosisPicker setDiagnosisCodes={handleNewDiagnosisCode} />
     </>
   );
 };
 
-export default PatientEntryFormDiagnosis;
+export default DiagnosisField;

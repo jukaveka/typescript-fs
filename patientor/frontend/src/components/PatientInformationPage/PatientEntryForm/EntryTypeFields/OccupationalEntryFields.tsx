@@ -1,46 +1,42 @@
 import { TextField } from "@mui/material";
-import { OccupationalEntryFields } from "../../../types";
+import { EntryFormFields } from "../../../../types";
 
 interface Props {
-  occupationalEntryFields: OccupationalEntryFields;
-  setOccupationalEntryFields: React.Dispatch<
-    React.SetStateAction<OccupationalEntryFields>
-  >;
+  entryFormFields: EntryFormFields;
+  setEntryFormFields: React.Dispatch<React.SetStateAction<EntryFormFields>>;
 }
 
 const OccupationalEntryForm = ({
-  occupationalEntryFields,
-  setOccupationalEntryFields,
+  entryFormFields,
+  setEntryFormFields,
 }: Props) => {
-  const { employerName, sickLeave } = occupationalEntryFields;
-
   const handleEmployerNameChange = (newValue: string) => {
-    setOccupationalEntryFields({
-      ...occupationalEntryFields,
+    setEntryFormFields({
+      ...entryFormFields,
       employerName: newValue,
     });
   };
 
   const handleSickLeaveStartDateChange = (newValue: string) => {
     const newSickLeaveObject = {
-      ...sickLeave,
+      ...entryFormFields.sickLeave,
       startDate: newValue,
     };
 
-    setOccupationalEntryFields({
-      ...occupationalEntryFields,
+    setEntryFormFields({
+      ...entryFormFields,
       sickLeave: newSickLeaveObject,
     });
   };
 
   const handleSickleaveEndDateChange = (newValue: string) => {
     const newSickLeaveObject = {
-      ...sickLeave,
+      ...entryFormFields.sickLeave,
       endDate: newValue,
     };
 
-    setOccupationalEntryFields({
-      ...occupationalEntryFields,
+    setEntryFormFields({
+      ...entryFormFields,
       sickLeave: newSickLeaveObject,
     });
   };
@@ -51,7 +47,7 @@ const OccupationalEntryForm = ({
         label="Employer"
         id="new-entry-employer-name"
         variant="standard"
-        value={employerName}
+        value={entryFormFields.employerName}
         onChange={(event) => handleEmployerNameChange(event.target.value)}
       />
 
@@ -59,7 +55,7 @@ const OccupationalEntryForm = ({
         label="Sick leave starts at"
         id="new-entry-sick-leave-start"
         variant="standard"
-        value={sickLeave.startDate}
+        value={entryFormFields.sickLeave.startDate}
         onChange={(event) => handleSickLeaveStartDateChange(event.target.value)}
       />
 
@@ -67,7 +63,7 @@ const OccupationalEntryForm = ({
         label="Sick leave ends at"
         id="new-entry-sick-leave-end"
         variant="standard"
-        value={sickLeave.endDate}
+        value={entryFormFields.sickLeave.endDate}
         onChange={(event) => handleSickleaveEndDateChange(event.target.value)}
       />
     </>

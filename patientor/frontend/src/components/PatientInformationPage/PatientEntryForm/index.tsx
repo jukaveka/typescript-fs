@@ -1,37 +1,26 @@
 import { useState } from "react";
 
-import {
-  Patient,
-  Entry,
-  BaseEntryFields,
-  HospitalEntryFields,
-  OccupationalEntryFields,
-  HealhtCheckEntryFields,
-} from "../../../types";
+import { Patient, EntryFormFields } from "../../../types";
 
 import patientService from "../../../services/patientService";
 
-import HospitalEntryForm from "./HospitalEntryFields";
-import OccupationalEntryForm from "./OccupationalEntryFields";
-import HealthCheckEntryForm from "./HealthCheckEntryFields";
-import PatientEntryFormBasic from "./PatientEntryFormBasic";
-import PatientEntryFormDescription from "./PatientEntryFormDescription";
-import PatientEntryFormDiagnosis from "./PatientEntryFormDiagnosis";
-import PatientEntryFormReview from "./PatientEntryFormReview";
+import BasicEntryFields from "./BasicEntryFields";
+import DescriptionField from "./DescriptionField";
+import DiagnosisField from "./DiagnosisField";
+import FormReview from "./FormReview";
 
 import {
   Box,
   Button,
   Container,
-  MenuItem,
   Paper,
-  Select,
   Step,
   StepButton,
   StepContent,
   Stepper,
   Typography,
 } from "@mui/material";
+import EntryTypeFields from "./EntryTypeFields";
 
 interface Props {
   patientId: Patient["id"];
@@ -40,49 +29,28 @@ interface Props {
 const PatientEntryForm = ({ patientId }: Props) => {
   const [activeStep, setActiveStep] = useState(0);
 
-  const [baseEntryFields, setBaseEntryFields] = useState<BaseEntryFields>({
+  const [entryFormFields, setEntryFormFields] = useState<EntryFormFields>({
     date: "",
     description: "",
     diagnosisCodes: [],
     specialist: "",
     type: "Hospital",
+    discharge: {
+      date: "",
+      criteria: "",
+    },
+    employerName: "",
+    sickLeave: {
+      startDate: "",
+      endDate: "",
+    },
+    healthCheckRating: 0,
   });
 
-  const [hospitalEntryFields, setHospitalEntryFields] =
-    useState<HospitalEntryFields>({
-      discharge: {
-        date: "",
-        criteria: "",
-      },
-    });
-
-  const [occupationalEntryFields, setOccupationalEntryFields] =
-    useState<OccupationalEntryFields>({
-      employerName: "",
-      sickLeave: {
-        startDate: "",
-        endDate: "",
-      },
-    });
-
-  const [healthCheckEntryFields, setHealthCheckEntryFields] =
-    useState<HealhtCheckEntryFields>(0);
-
-  const formValues = {
-    baseFields: baseEntryFields,
-    hospitalFields: hospitalEntryFields,
-    occupationalFields: occupationalEntryFields,
-    healthCheckFields: healthCheckEntryFields,
-  };
-
-  console.log(baseEntryFields);
-  console.log(hospitalEntryFields);
-  console.log(occupationalEntryFields);
-  console.log(healthCheckEntryFields);
-  console.log(formValues);
+  console.log(entryFormFields);
 
   const handleNewEntry = () => {
-    const newEntryData = formValues;
+    const newEntryData = entryFormFields;
 
     try {
       patientService.addEntry(patientId, newEntryData);
@@ -99,33 +67,6 @@ const PatientEntryForm = ({ patientId }: Props) => {
     setActiveStep(targetStep);
   };
 
-  const renderTypeSpecificFields = () => {
-    switch (baseEntryFields.type) {
-      case "Hospital":
-        return (
-          <HospitalEntryForm
-            hospitalEntryFields={hospitalEntryFields}
-            setHospitalEntryFields={setHospitalEntryFields}
-          />
-        );
-      case "OccupationalHealthcare":
-        return (
-          <OccupationalEntryForm
-            occupationalEntryFields={occupationalEntryFields}
-            setOccupationalEntryFields={setOccupationalEntryFields}
-          />
-        );
-      case "HealthCheck":
-        return (
-          <HealthCheckEntryForm
-            healthCheckEntryFields={healthCheckEntryFields}
-            setHealthCheckEntryFields={setHealthCheckEntryFields}
-          />
-        );
-      default:
-        return null;
-    }
-  };
   return (
     <Paper sx={{ padding: "20px", lineHeight: "25px" }}>
       <Container>
@@ -138,9 +79,9 @@ const PatientEntryForm = ({ patientId }: Props) => {
                 </StepButton>
 
                 <StepContent>
-                  <PatientEntryFormBasic
-                    baseEntryFields={baseEntryFields}
-                    setBaseEntryFields={setBaseEntryFields}
+                  <BasicEntryFields
+                    entryFormFields={entryFormFields}
+                    setEntryFormFields={setEntryFormFields}
                   />
                   <br />
                   <br />
@@ -156,9 +97,9 @@ const PatientEntryForm = ({ patientId }: Props) => {
                 </StepButton>
 
                 <StepContent>
-                  <PatientEntryFormDescription
-                    baseEntryFields={baseEntryFields}
-                    setBaseEntryFields={setBaseEntryFields}
+                  <DescriptionField
+                    entryFormFields={entryFormFields}
+                    setEntryFormFields={setEntryFormFields}
                   />
                   <br /> <br />
                   <Button variant="contained" onClick={handleNext}>
@@ -173,9 +114,9 @@ const PatientEntryForm = ({ patientId }: Props) => {
                 </StepButton>
 
                 <StepContent>
-                  <PatientEntryFormDiagnosis
-                    baseEntryFields={baseEntryFields}
-                    setBaseEntryFields={setBaseEntryFields}
+                  <DiagnosisField
+                    entryFormFields={entryFormFields}
+                    setEntryFormFields={setEntryFormFields}
                   />
                   <br /> <br />
                   <Button variant="contained" onClick={handleNext}>
@@ -193,35 +134,11 @@ const PatientEntryForm = ({ patientId }: Props) => {
                   <Typography variant="subtitle1">
                     Select the type of visit and fill the required fields
                   </Typography>
-                  <Select
-                    id="new-entry-type"
-                    fullWidth
-                    value={baseEntryFields.type}
-                    onChange={(event) =>
-                      setBaseEntryFields({
-                        ...baseEntryFields,
-                        type: event.target.value as Entry["type"],
-                      })
-                    }
-                  >
-                    <MenuItem key={`entry-type-hospital`} value={"Hospital"}>
-                      Hospital
-                    </MenuItem>
-                    <MenuItem
-                      key={`entry-type-occupational`}
-                      value={"OccupationalHealthcare"}
-                    >
-                      Occupational healthcare
-                    </MenuItem>
-                    <MenuItem
-                      key={`entry-type-healthcheck`}
-                      value={"HealthCheck"}
-                    >
-                      Health check
-                    </MenuItem>
-                  </Select>
 
-                  {renderTypeSpecificFields()}
+                  <EntryTypeFields
+                    entryFormFields={entryFormFields}
+                    setEntryFormFields={setEntryFormFields}
+                  />
 
                   <Button variant="contained" onClick={handleNext}>
                     Review
@@ -234,7 +151,7 @@ const PatientEntryForm = ({ patientId }: Props) => {
                   Review entry and submit
                 </StepButton>
                 <StepContent>
-                  <PatientEntryFormReview formValues={formValues} />
+                  <FormReview entryFormFields={entryFormFields} />
                   <Button variant="contained" onClick={handleNewEntry}>
                     Submit
                   </Button>

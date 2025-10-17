@@ -1,33 +1,31 @@
 import { TextField } from "@mui/material";
-import { HospitalEntryFields } from "../../../types";
+import { EntryFormFields } from "../../../../types";
 
 interface Props {
-  hospitalEntryFields: HospitalEntryFields;
-  setHospitalEntryFields: React.Dispatch<
-    React.SetStateAction<HospitalEntryFields>
-  >;
+  entryFormFields: EntryFormFields;
+  setEntryFormFields: React.Dispatch<React.SetStateAction<EntryFormFields>>;
 }
 
-const HospitalEntryForm = ({
-  hospitalEntryFields,
-  setHospitalEntryFields,
+const HospitalEntryFields = ({
+  entryFormFields,
+  setEntryFormFields,
 }: Props) => {
   const handleDischargeDateChange = (newValue: string) => {
     const newDischargeObject = {
-      ...hospitalEntryFields.discharge,
+      ...entryFormFields.discharge,
       date: newValue,
     };
 
-    setHospitalEntryFields({ discharge: newDischargeObject });
+    setEntryFormFields({ ...entryFormFields, discharge: newDischargeObject });
   };
 
   const handleNewDischargeCriteria = (newValue: string) => {
     const newDischargeObject = {
-      ...hospitalEntryFields.discharge,
+      ...entryFormFields.discharge,
       criteria: newValue,
     };
 
-    setHospitalEntryFields({ discharge: newDischargeObject });
+    setEntryFormFields({ ...entryFormFields, discharge: newDischargeObject });
   };
 
   return (
@@ -36,7 +34,7 @@ const HospitalEntryForm = ({
         label="Date of discharge"
         id="new-entry-discharge-date"
         variant="standard"
-        value={hospitalEntryFields.discharge.date}
+        value={entryFormFields.discharge.date}
         onChange={(event) => handleDischargeDateChange(event.target.value)}
       />
 
@@ -45,11 +43,11 @@ const HospitalEntryForm = ({
         id="new-entry-discharge-criteria"
         multiline
         rows={2}
-        value={hospitalEntryFields.discharge.criteria}
+        value={entryFormFields.discharge.criteria}
         onChange={(event) => handleNewDischargeCriteria(event.target.value)}
       />
     </>
   );
 };
 
-export default HospitalEntryForm;
+export default HospitalEntryFields;
