@@ -42,7 +42,7 @@ export interface SickLeave {
 export interface OccupationalHealthCareEntry extends BaseEntry {
   type: "OccupationalHealthcare";
   employerName: string;
-  sickLeave?: SickLeave;
+  sickLeave: SickLeave;
 }
 
 export interface Discharge {
@@ -77,19 +77,19 @@ export type EntryFormValues =
   | UnionOmit<OccupationalHealthCareEntry, "id">
   | UnionOmit<HealthCheckEntry, "id">;
 
-export type BaseEntryFormValues = Pick<
+export type BaseEntryFields = Pick<
   Entry,
   "date" | "specialist" | "diagnosisCodes" | "description" | "type"
 >;
 
-export type HospitalEntryFormValues = Pick<HospitalEntry, "discharge">;
+export type HospitalEntryFields = Pick<HospitalEntry, "discharge">;
 
-export type OccupationalEntryFormValues = Pick<
+export type OccupationalEntryFields = Pick<
   OccupationalHealthCareEntry,
   "employerName" | "sickLeave"
 >;
 
-export type HealthCheckEntryFormValues = Pick<
+export type HealhtCheckEntryFields = Pick<
   HealthCheckEntry,
   "healthCheckRating"
 >;

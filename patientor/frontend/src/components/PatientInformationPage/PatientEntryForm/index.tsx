@@ -73,12 +73,9 @@ const PatientEntryForm = ({ patientId }: Props) => {
 
   console.log(baseEntryFields);
   console.log(hospitalEntryFields);
+  console.log(occupationalEntryFields);
 
   const [type, setType] = useState<Entry["type"]>("Hospital");
-
-  const [employerName, setEmployerName] = useState("");
-  const [sickLeaveStartDate, setSickLeaveStartDate] = useState("");
-  const [sickLeaveEndDate, setSickLeaveEndDate] = useState("");
 
   const [healthCheckRating, setHealthCheckRating] =
     useState<healthCheckRating>(0);
@@ -90,11 +87,8 @@ const PatientEntryForm = ({ patientId }: Props) => {
     specialist: baseEntryFields.specialist,
     type,
     discharge: hospitalEntryFields.discharge,
-    employerName,
-    sickLeave: {
-      startDate: sickLeaveStartDate,
-      endDate: sickLeaveEndDate,
-    },
+    employerName: occupationalEntryFields.employerName,
+    sickLeave: occupationalEntryFields.sickLeave,
     healthCheckRating,
   };
 
@@ -128,12 +122,8 @@ const PatientEntryForm = ({ patientId }: Props) => {
       case "OccupationalHealthcare":
         return (
           <OccupationalEntryForm
-            employerName={employerName}
-            setEmployerName={setEmployerName}
-            sickLeaveStartDate={sickLeaveStartDate}
-            setSickLeaveStartDate={setSickLeaveStartDate}
-            sickLeaveEndDate={sickLeaveEndDate}
-            setSickLeaveEndDate={setSickLeaveEndDate}
+            occupationalEntryFields={occupationalEntryFields}
+            setOccupationalEntryFields={setOccupationalEntryFields}
           />
         );
       case "HealthCheck":
