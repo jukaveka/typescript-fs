@@ -1,13 +1,12 @@
 import { useState } from "react";
 
 import {
-  BaseEntryFields,
+  Patient,
   Entry,
-  healthCheckRating,
+  BaseEntryFields,
   HospitalEntryFields,
   OccupationalEntryFields,
   HealhtCheckEntryFields,
-  Patient,
 } from "../../../types";
 
 import patientService from "../../../services/patientService";
@@ -66,19 +65,15 @@ const PatientEntryForm = ({ patientId }: Props) => {
       },
     });
 
-  const [healthCheckFields, setHealthCheckFields] =
-    useState<HealhtCheckEntryFields>({
-      healthCheckRating: 0,
-    });
+  const [healthCheckEntryFields, setHealthCheckEntryFields] =
+    useState<HealhtCheckEntryFields>(0);
 
   console.log(baseEntryFields);
   console.log(hospitalEntryFields);
   console.log(occupationalEntryFields);
+  console.log(healthCheckEntryFields);
 
   const [type, setType] = useState<Entry["type"]>("Hospital");
-
-  const [healthCheckRating, setHealthCheckRating] =
-    useState<healthCheckRating>(0);
 
   const formValues = {
     date: baseEntryFields.date,
@@ -89,7 +84,7 @@ const PatientEntryForm = ({ patientId }: Props) => {
     discharge: hospitalEntryFields.discharge,
     employerName: occupationalEntryFields.employerName,
     sickLeave: occupationalEntryFields.sickLeave,
-    healthCheckRating,
+    healthCheckRating: healthCheckEntryFields,
   };
 
   const handleNewEntry = () => {
@@ -129,8 +124,8 @@ const PatientEntryForm = ({ patientId }: Props) => {
       case "HealthCheck":
         return (
           <HealthCheckEntryForm
-            healthCheckRating={healthCheckRating}
-            setHealthCheckRating={setHealthCheckRating}
+            healthCheckEntryFields={healthCheckEntryFields}
+            setHealthCheckEntryFields={setHealthCheckEntryFields}
           />
         );
       default:

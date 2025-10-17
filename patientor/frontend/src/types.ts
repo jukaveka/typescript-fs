@@ -89,7 +89,4 @@ export type OccupationalEntryFields = Pick<
   "employerName" | "sickLeave"
 >;
 
-export type HealhtCheckEntryFields = Pick<
-  HealthCheckEntry,
-  "healthCheckRating"
->;
+export type HealhtCheckEntryFields = healthCheckRating;
