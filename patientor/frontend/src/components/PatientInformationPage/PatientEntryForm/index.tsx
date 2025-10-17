@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import {
   BaseEntryFields,
-  Diagnosis,
   Entry,
   healthCheckRating,
   HospitalEntryFields,
@@ -50,9 +49,7 @@ const PatientEntryForm = ({ patientId }: Props) => {
     type: "Hospital",
   });
 
-  console.log(baseEntryFields);
-
-  const [HospitalEntryFields, setHospitalEntryFields] =
+  const [hospitalEntryFields, setHospitalEntryFields] =
     useState<HospitalEntryFields>({
       discharge: {
         date: "",
@@ -60,7 +57,7 @@ const PatientEntryForm = ({ patientId }: Props) => {
       },
     });
 
-  const [OccupationalEntryFields, setOccupationalEntryFields] =
+  const [occupationalEntryFields, setOccupationalEntryFields] =
     useState<OccupationalEntryFields>({
       employerName: "",
       sickLeave: {
@@ -74,10 +71,10 @@ const PatientEntryForm = ({ patientId }: Props) => {
       healthCheckRating: 0,
     });
 
-  const [type, setType] = useState<Entry["type"]>("Hospital");
+  console.log(baseEntryFields);
+  console.log(hospitalEntryFields);
 
-  const [dischargeDate, setDischargeDate] = useState("");
-  const [dischargeCriteria, setDischargeCriteria] = useState("");
+  const [type, setType] = useState<Entry["type"]>("Hospital");
 
   const [employerName, setEmployerName] = useState("");
   const [sickLeaveStartDate, setSickLeaveStartDate] = useState("");
@@ -92,10 +89,7 @@ const PatientEntryForm = ({ patientId }: Props) => {
     diagnosisCodes: baseEntryFields.diagnosisCodes,
     specialist: baseEntryFields.specialist,
     type,
-    discharge: {
-      date: dischargeDate,
-      criteria: dischargeCriteria,
-    },
+    discharge: hospitalEntryFields.discharge,
     employerName,
     sickLeave: {
       startDate: sickLeaveStartDate,
@@ -127,10 +121,8 @@ const PatientEntryForm = ({ patientId }: Props) => {
       case "Hospital":
         return (
           <HospitalEntryForm
-            dischargeDate={dischargeDate}
-            setDischargeDate={setDischargeDate}
-            dischargeCriteria={dischargeCriteria}
-            setDischargeCriteria={setDischargeCriteria}
+            hospitalEntryFields={hospitalEntryFields}
+            setHospitalEntryFields={setHospitalEntryFields}
           />
         );
       case "OccupationalHealthcare":
