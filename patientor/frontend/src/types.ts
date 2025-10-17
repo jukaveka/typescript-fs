@@ -72,11 +72,6 @@ export interface Patient {
 
 export type PatientFormValues = Omit<Patient, "id" | "entries">;
 
-export type EntryFormValues =
-  | UnionOmit<HospitalEntry, "id">
-  | UnionOmit<OccupationalHealthCareEntry, "id">
-  | UnionOmit<HealthCheckEntry, "id">;
-
 export type BaseEntryFields = Pick<
   Entry,
   "date" | "specialist" | "diagnosisCodes" | "description" | "type"
@@ -90,3 +85,10 @@ export type OccupationalEntryFields = Pick<
 >;
 
 export type HealhtCheckEntryFields = healthCheckRating;
+
+export interface EntryFormFields {
+  baseFields: BaseEntryFields;
+  hospitalFields: HospitalEntryFields;
+  occupationalFields: OccupationalEntryFields;
+  healthCheckFields: HealhtCheckEntryFields;
+}

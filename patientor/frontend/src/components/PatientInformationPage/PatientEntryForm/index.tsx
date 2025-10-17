@@ -68,24 +68,20 @@ const PatientEntryForm = ({ patientId }: Props) => {
   const [healthCheckEntryFields, setHealthCheckEntryFields] =
     useState<HealhtCheckEntryFields>(0);
 
+  const [type, setType] = useState<Entry["type"]>("Hospital");
+
+  const formValues = {
+    baseFields: baseEntryFields,
+    hospitalFields: hospitalEntryFields,
+    occupationalFields: occupationalEntryFields,
+    healthCheckFields: healthCheckEntryFields,
+  };
+
   console.log(baseEntryFields);
   console.log(hospitalEntryFields);
   console.log(occupationalEntryFields);
   console.log(healthCheckEntryFields);
-
-  const [type, setType] = useState<Entry["type"]>("Hospital");
-
-  const formValues = {
-    date: baseEntryFields.date,
-    description: baseEntryFields.description,
-    diagnosisCodes: baseEntryFields.diagnosisCodes,
-    specialist: baseEntryFields.specialist,
-    type,
-    discharge: hospitalEntryFields.discharge,
-    employerName: occupationalEntryFields.employerName,
-    sickLeave: occupationalEntryFields.sickLeave,
-    healthCheckRating: healthCheckEntryFields,
-  };
+  console.log(formValues);
 
   const handleNewEntry = () => {
     const newEntryData = formValues;

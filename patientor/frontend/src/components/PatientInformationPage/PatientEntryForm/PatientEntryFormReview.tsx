@@ -1,22 +1,25 @@
 import { Typography } from "@mui/material";
-import { EntryFormValues } from "../../../types";
+import { EntryFormFields } from "../../../types";
 import DiagnosisList from "../DiagnosisList";
 
 interface Props {
-  formValues: EntryFormValues;
+  formValues: EntryFormFields;
 }
 
 const PatientEntryFormReview = ({ formValues }: Props) => {
+  const { baseFields, hospitalFields, occupationalFields, healthCheckFields } =
+    formValues;
+
   const renderTypeSpecificFields = () => {
     console.log(formValues);
   };
 
   const reviewNotReady = () => {
     return (
-      !formValues.date ||
-      !formValues.specialist ||
-      !formValues.description ||
-      !formValues.type
+      !baseFields.date ||
+      !baseFields.specialist ||
+      !baseFields.description ||
+      !baseFields.type
     );
   };
 
@@ -46,21 +49,21 @@ const PatientEntryFormReview = ({ formValues }: Props) => {
       <Typography variant="subtitle1">
         <b>Basic information</b>
       </Typography>
-      <Typography> Date - {formValues.date} </Typography>
-      <Typography> Specialist - {formValues.specialist} </Typography>
+      <Typography> Date - {baseFields.date} </Typography>
+      <Typography> Specialist - {baseFields.specialist} </Typography>
 
       <Typography variant="subtitle1">
         <b>Description</b>
       </Typography>
-      <Typography> {formValues.description} </Typography>
+      <Typography> {baseFields.description} </Typography>
 
       <Typography variant="subtitle1">
         <b> Diagnosis</b>
       </Typography>
-      {formValues.diagnosisCodes === undefined ? (
+      {baseFields.diagnosisCodes === undefined ? (
         <Typography> No diagnosis added </Typography>
       ) : (
-        <DiagnosisList diagnosisCodes={formValues.diagnosisCodes} />
+        <DiagnosisList diagnosisCodes={baseFields.diagnosisCodes} />
       )}
 
       <Typography variant="subtitle1">
