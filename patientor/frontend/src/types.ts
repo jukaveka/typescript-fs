@@ -77,4 +77,19 @@ export type EntryFormValues =
   | UnionOmit<OccupationalHealthCareEntry, "id">
   | UnionOmit<HealthCheckEntry, "id">;
 
-export type DiagnosisDisplay = "Text" | "MenuItem";
+export type BaseEntryFormValues = Pick<
+  Entry,
+  "date" | "specialist" | "diagnosisCodes" | "description" | "type"
+>;
+
+export type HospitalEntryFormValues = Pick<HospitalEntry, "discharge">;
+
+export type OccupationalEntryFormValues = Pick<
+  OccupationalHealthCareEntry,
+  "employerName" | "sickLeave"
+>;
+
+export type HealthCheckEntryFormValues = Pick<
+  HealthCheckEntry,
+  "healthCheckRating"
+>;

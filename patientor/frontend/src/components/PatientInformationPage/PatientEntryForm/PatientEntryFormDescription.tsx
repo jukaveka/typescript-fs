@@ -1,16 +1,20 @@
 import { TextField, Typography } from "@mui/material";
-import { Entry } from "../../../types";
+import { BaseEntryFields } from "../../../types";
 import React from "react";
 
 interface Props {
-  description: Entry["description"];
-  setDescription: React.Dispatch<React.SetStateAction<string>>;
+  baseEntryFields: BaseEntryFields;
+  setBaseEntryFields: React.Dispatch<React.SetStateAction<BaseEntryFields>>;
 }
 
 const PatientEntryFormDescription = ({
-  description,
-  setDescription,
+  baseEntryFields,
+  setBaseEntryFields,
 }: Props) => {
+  const handleDescriptionChange = (newValue: string) => {
+    setBaseEntryFields({ ...baseEntryFields, description: newValue });
+  };
+
   return (
     <>
       <Typography variant="subtitle1" sx={{ paddingBottom: "20px" }}>
@@ -23,8 +27,8 @@ const PatientEntryFormDescription = ({
         multiline
         rows={3}
         fullWidth
-        value={description}
-        onChange={(event) => setDescription(event.target.value)}
+        value={baseEntryFields.description}
+        onChange={(event) => handleDescriptionChange(event.target.value)}
       />
     </>
   );

@@ -1,6 +1,15 @@
 import { useState } from "react";
 
-import { Diagnosis, Entry, healthCheckRating, Patient } from "../../../types";
+import {
+  BaseEntryFields,
+  Diagnosis,
+  Entry,
+  healthCheckRating,
+  HospitalEntryFields,
+  OccupationalEntryFields,
+  HealhtCheckEntryFields,
+  Patient,
+} from "../../../types";
 
 import patientService from "../../../services/patientService";
 
@@ -30,30 +39,42 @@ interface Props {
   patientId: Patient["id"];
 }
 
-const entryTypes = [
-  {
-    value: "Hospital",
-    label: "Hospital",
-  },
-  {
-    value: "OccupationalHealthcare",
-    label: "Occupational healthcare",
-  },
-  {
-    value: "HealthCheck",
-    label: "Health check",
-  },
-];
-
 const PatientEntryForm = ({ patientId }: Props) => {
   const [activeStep, setActiveStep] = useState(0);
 
-  const [date, setDate] = useState("");
-  const [description, setDescription] = useState("");
-  const [diagnosisCodes, setDiagnosisCodes] =
-    useState<Array<Diagnosis["code"]>>();
-  const [specialist, setSpecialist] = useState("");
-  const [type, setType] = useState<Entry["type"]>("");
+  const [baseEntryFields, setBaseEntryFields] = useState<BaseEntryFields>({
+    date: "",
+    description: "",
+    diagnosisCodes: [],
+    specialist: "",
+    type: "Hospital",
+  });
+
+  console.log(baseEntryFields);
+
+  const [HospitalEntryFields, setHospitalEntryFields] =
+    useState<HospitalEntryFields>({
+      discharge: {
+        date: "",
+        criteria: "",
+      },
+    });
+
+  const [OccupationalEntryFields, setOccupationalEntryFields] =
+    useState<OccupationalEntryFields>({
+      employerName: "",
+      sickLeave: {
+        startDate: "",
+        endDate: "",
+      },
+    });
+
+  const [healthCheckFields, setHealthCheckFields] =
+    useState<HealhtCheckEntryFields>({
+      healthCheckRating: 0,
+    });
+
+  const [type, setType] = useState<Entry["type"]>("Hospital");
 
   const [dischargeDate, setDischargeDate] = useState("");
   const [dischargeCriteria, setDischargeCriteria] = useState("");
@@ -66,10 +87,10 @@ const PatientEntryForm = ({ patientId }: Props) => {
     useState<healthCheckRating>(0);
 
   const formValues = {
-    date,
-    description,
-    diagnosisCodes,
-    specialist,
+    date: baseEntryFields.date,
+    description: baseEntryFields.description,
+    diagnosisCodes: baseEntryFields.diagnosisCodes,
+    specialist: baseEntryFields.specialist,
     type,
     discharge: {
       date: dischargeDate,
@@ -147,10 +168,8 @@ const PatientEntryForm = ({ patientId }: Props) => {
 
                 <StepContent>
                   <PatientEntryFormBasic
-                    date={date}
-                    setDate={setDate}
-                    specialist={specialist}
-                    setSpecialist={setSpecialist}
+                    baseEntryFields={baseEntryFields}
+                    setBaseEntryFields={setBaseEntryFields}
                   />
                   <br />
                   <br />
@@ -167,8 +186,8 @@ const PatientEntryForm = ({ patientId }: Props) => {
 
                 <StepContent>
                   <PatientEntryFormDescription
-                    description={description}
-                    setDescription={setDescription}
+                    baseEntryFields={baseEntryFields}
+                    setBaseEntryFields={setBaseEntryFields}
                   />
                   <br /> <br />
                   <Button variant="contained" onClick={handleNext}>
@@ -184,8 +203,8 @@ const PatientEntryForm = ({ patientId }: Props) => {
 
                 <StepContent>
                   <PatientEntryFormDiagnosis
-                    diagnosisCodes={diagnosisCodes}
-                    setDiagnosisCodes={setDiagnosisCodes}
+                    baseEntryFields={baseEntryFields}
+                    setBaseEntryFields={setBaseEntryFields}
                   />
                   <br /> <br />
                   <Button variant="contained" onClick={handleNext}>

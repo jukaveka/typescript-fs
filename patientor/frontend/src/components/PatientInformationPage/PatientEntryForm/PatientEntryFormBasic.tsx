@@ -1,20 +1,24 @@
 import React from "react";
-import { Entry } from "../../../types";
+import { BaseEntryFields } from "../../../types";
 import { TextField, Typography } from "@mui/material";
 
 interface Props {
-  date: Entry["date"];
-  setDate: React.Dispatch<React.SetStateAction<string>>;
-  specialist: Entry["specialist"];
-  setSpecialist: React.Dispatch<React.SetStateAction<string>>;
+  baseEntryFields: BaseEntryFields;
+  setBaseEntryFields: React.Dispatch<React.SetStateAction<BaseEntryFields>>;
 }
 
 const PatientEntryFormBasic = ({
-  date,
-  setDate,
-  specialist,
-  setSpecialist,
+  baseEntryFields,
+  setBaseEntryFields,
 }: Props) => {
+  const handleDateChange = (newValue: string) => {
+    setBaseEntryFields({ ...baseEntryFields, date: newValue });
+  };
+
+  const handleSpecialistChange = (newValue: string) => {
+    setBaseEntryFields({ ...baseEntryFields, specialist: newValue });
+  };
+
   return (
     <>
       <Typography variant="subtitle1" sx={{ paddingBottom: "20px" }}>
@@ -25,16 +29,16 @@ const PatientEntryFormBasic = ({
         label="Date"
         variant="standard"
         id="new-entry-date"
-        value={date}
-        onChange={(event) => setDate(event.target.value)}
+        value={baseEntryFields.date}
+        onChange={(event) => handleDateChange(event.target.value)}
       />
-      <br />
+
       <TextField
         label="Specialist"
         variant="standard"
         id="new-entry-specialist"
-        value={specialist}
-        onChange={(event) => setSpecialist(event.target.value)}
+        value={baseEntryFields.specialist}
+        onChange={(event) => handleSpecialistChange(event.target.value)}
       />
     </>
   );

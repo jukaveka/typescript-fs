@@ -7,11 +7,10 @@ import { Diagnosis } from "../../../types";
 import { Button, MenuItem, Select } from "@mui/material";
 
 interface Props {
-  diagnosisCodes: Array<Diagnosis["code"]> | undefined;
-  setDiagnosisCodes: React.Dispatch<React.SetStateAction<string[] | undefined>>;
+  setDiagnosisCodes: (newValue: string) => void;
 }
 
-const DiagnosisPicker = ({ diagnosisCodes, setDiagnosisCodes }: Props) => {
+const DiagnosisPicker = ({ setDiagnosisCodes }: Props) => {
   const [selectedDiagnosis, setSelectedDiagnosis] =
     useState<Diagnosis["code"]>("");
   const [allDiagnoses, setAllDiagnoses] = useState<Array<Diagnosis>>([]);
@@ -26,12 +25,7 @@ const DiagnosisPicker = ({ diagnosisCodes, setDiagnosisCodes }: Props) => {
   }, []);
 
   const addDiagnosis = () => {
-    if (diagnosisCodes === undefined) {
-      setDiagnosisCodes([selectedDiagnosis]);
-    } else {
-      setDiagnosisCodes(diagnosisCodes?.concat(selectedDiagnosis));
-    }
-    setSelectedDiagnosis("");
+    setDiagnosisCodes(selectedDiagnosis);
   };
 
   return (
