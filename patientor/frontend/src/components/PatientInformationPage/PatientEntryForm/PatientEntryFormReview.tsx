@@ -1,6 +1,8 @@
-import { Typography } from "@mui/material";
 import { EntryFormFields } from "../../../types";
+
 import DiagnosisList from "../DiagnosisList";
+
+import { Typography } from "@mui/material";
 
 interface Props {
   formValues: EntryFormFields;

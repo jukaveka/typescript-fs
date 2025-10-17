@@ -68,8 +68,6 @@ const PatientEntryForm = ({ patientId }: Props) => {
   const [healthCheckEntryFields, setHealthCheckEntryFields] =
     useState<HealhtCheckEntryFields>(0);
 
-  const [type, setType] = useState<Entry["type"]>("Hospital");
-
   const formValues = {
     baseFields: baseEntryFields,
     hospitalFields: hospitalEntryFields,
@@ -102,7 +100,7 @@ const PatientEntryForm = ({ patientId }: Props) => {
   };
 
   const renderTypeSpecificFields = () => {
-    switch (type) {
+    switch (baseEntryFields.type) {
       case "Hospital":
         return (
           <HospitalEntryForm
@@ -188,7 +186,7 @@ const PatientEntryForm = ({ patientId }: Props) => {
 
               <Step>
                 <StepButton onClick={() => handleStep(3)}>
-                  Add information based on type of visit
+                  Type of entry
                 </StepButton>
 
                 <StepContent>
@@ -198,9 +196,12 @@ const PatientEntryForm = ({ patientId }: Props) => {
                   <Select
                     id="new-entry-type"
                     fullWidth
-                    value={type}
+                    value={baseEntryFields.type}
                     onChange={(event) =>
-                      setType(event.target.value as Entry["type"])
+                      setBaseEntryFields({
+                        ...baseEntryFields,
+                        type: event.target.value as Entry["type"],
+                      })
                     }
                   >
                     <MenuItem key={`entry-type-hospital`} value={"Hospital"}>
