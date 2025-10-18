@@ -1,6 +1,6 @@
 import React from "react";
 import { EntryFormFields } from "../../../types";
-import { TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 
 interface Props {
   entryFormFields: EntryFormFields;
@@ -23,13 +23,15 @@ const BasicEntryFields = ({ entryFormFields, setEntryFormFields }: Props) => {
         examined the patient.
       </Typography>
 
-      <TextField
-        label="Date"
-        variant="standard"
-        id="new-entry-date"
-        value={entryFormFields.date}
-        onChange={(event) => handleDateChange(event.target.value)}
-      />
+      <Box>
+        <TextField
+          type="date"
+          variant="standard"
+          id="new-entry-date"
+          value={entryFormFields.date}
+          onChange={(event) => handleDateChange(event.target.value)}
+        />
+      </Box>
 
       <TextField
         label="Specialist"
