@@ -1,6 +1,10 @@
 import { EntryFormFields } from "../../../types";
+import { assertNever } from "../../../utils/assertNever";
 
 import DiagnosisList from "../DiagnosisList";
+import HealthCheckEntryDetails from "../PatientEntry/PatientEntryTypeDetails/HealthCheckEntryDetails";
+import HospitalEntryDetails from "../PatientEntry/PatientEntryTypeDetails/HospitalEntryDetails";
+import OccupationalEntryDetails from "../PatientEntry/PatientEntryTypeDetails/OccupationalEntryDetails";
 
 import { Typography } from "@mui/material";
 
@@ -9,8 +13,26 @@ interface Props {
 }
 
 const FormReview = ({ entryFormFields }: Props) => {
-  const renderTypeSpecificFields = () => {
-    console.log(entryFormFields);
+  const renderTypeSpecificFields = (type: EntryFormFields["type"]) => {
+    switch (type) {
+      case "Hospital":
+        return <HospitalEntryDetails discharge={entryFormFields.discharge} />;
+      case "OccupationalHealthcare":
+        return (
+          <OccupationalEntryDetails
+            employerName={entryFormFields.employerName}
+            sickLeave={entryFormFields.sickLeave}
+          />
+        );
+      case "HealthCheck":
+        return (
+          <HealthCheckEntryDetails
+            healthCheckRating={entryFormFields.healthCheckRating}
+          />
+        );
+      default:
+        return assertNever(type);
+    }
   };
 
   const reviewNotReady = () => {
@@ -45,30 +67,29 @@ const FormReview = ({ entryFormFields }: Props) => {
         Submit if all of the information given is correct
       </Typography>
 
-      <Typography variant="subtitle1">
-        <b>Basic information</b>
-      </Typography>
-      <Typography> Date - {entryFormFields.date} </Typography>
-      <Typography> Specialist - {entryFormFields.specialist} </Typography>
+      <fieldset>
+        <Typography variant="h6">
+          <b>Basic information</b>
+        </Typography>
+        <Typography> Date - {entryFormFields.date} </Typography>
+        <Typography> Specialist - {entryFormFields.specialist} </Typography>
 
-      <Typography variant="subtitle1">
-        <b>Description</b>
-      </Typography>
-      <Typography> {entryFormFields.description} </Typography>
+        <Typography variant="h6">
+          <b>Description</b>
+        </Typography>
+        <Typography> {entryFormFields.description} </Typography>
 
-      <Typography variant="subtitle1">
-        <b> Diagnosis</b>
-      </Typography>
-      {entryFormFields.diagnosisCodes === undefined ? (
-        <Typography> No diagnosis added </Typography>
-      ) : (
-        <DiagnosisList diagnosisCodes={entryFormFields.diagnosisCodes} />
-      )}
+        <Typography variant="h6">
+          <b> Diagnosis</b>
+        </Typography>
+        {entryFormFields.diagnosisCodes === undefined ? (
+          <Typography> No diagnosis added </Typography>
+        ) : (
+          <DiagnosisList diagnosisCodes={entryFormFields.diagnosisCodes} />
+        )}
 
-      <Typography variant="subtitle1">
-        <b> Type-related information </b>
-      </Typography>
-      {renderTypeSpecificFields()}
+        {renderTypeSpecificFields(entryFormFields.type)}
+      </fieldset>
     </>
   );
 };
