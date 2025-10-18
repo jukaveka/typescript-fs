@@ -1,8 +1,8 @@
 import React from "react";
 
-import { EntryFormFields } from "../../../types";
+import { EntryFormFields } from "../../../../types";
 
-import DiagnosisList from "../DiagnosisList";
+import DiagnosisList from "../../DiagnosisList";
 import DiagnosisPicker from "./DiagnosisPicker";
 
 import { Typography } from "@mui/material";

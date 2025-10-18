@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import diagnosisService from "../../../services/diagnosisService";
+import diagnosisService from "../../../../services/diagnosisService";
 
-import { Diagnosis } from "../../../types";
+import { Diagnosis } from "../../../../types";
 
 import { Button, MenuItem, Select } from "@mui/material";
 
