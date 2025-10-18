@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { EntryFormFields } from "../../../../types";
 
 interface Props {
@@ -30,13 +30,17 @@ const HospitalEntryFields = ({
 
   return (
     <>
-      <TextField
-        label="Date of discharge"
-        id="new-entry-discharge-date"
-        variant="standard"
-        value={entryFormFields.discharge.date}
-        onChange={(event) => handleDischargeDateChange(event.target.value)}
-      />
+      <Box>
+        <TextField
+          type="date"
+          id="new-entry-discharge-date"
+          label="Date of discharge"
+          InputLabelProps={{ shrink: true }}
+          variant="standard"
+          value={entryFormFields.discharge.date}
+          onChange={(event) => handleDischargeDateChange(event.target.value)}
+        />
+      </Box>
 
       <TextField
         label="Criteria for discharge"

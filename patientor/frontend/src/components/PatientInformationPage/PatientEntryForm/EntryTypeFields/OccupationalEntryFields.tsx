@@ -1,5 +1,8 @@
-import { TextField } from "@mui/material";
+import { useState } from "react";
+
 import { EntryFormFields } from "../../../../types";
+
+import { Box, Switch, TextField, Typography } from "@mui/material";
 
 interface Props {
   entryFormFields: EntryFormFields;
@@ -10,6 +13,8 @@ const OccupationalEntryForm = ({
   entryFormFields,
   setEntryFormFields,
 }: Props) => {
+  const [sickLeaveFormVisible, setSickLeaveFormVisible] = useState(false);
+
   const handleEmployerNameChange = (newValue: string) => {
     setEntryFormFields({
       ...entryFormFields,
@@ -41,6 +46,10 @@ const OccupationalEntryForm = ({
     });
   };
 
+  const handleSickLeaveRequiredChange = () => {
+    setSickLeaveFormVisible(!sickLeaveFormVisible);
+  };
+
   return (
     <>
       <TextField
@@ -51,21 +60,44 @@ const OccupationalEntryForm = ({
         onChange={(event) => handleEmployerNameChange(event.target.value)}
       />
 
-      <TextField
-        label="Sick leave starts at"
-        id="new-entry-sick-leave-start"
-        variant="standard"
-        value={entryFormFields.sickLeave.startDate}
-        onChange={(event) => handleSickLeaveStartDateChange(event.target.value)}
-      />
+      <Typography variant="subtitle1">
+        Does patient require sick leave?
+        <Box>
+          <Switch
+            size="medium"
+            checked={sickLeaveFormVisible}
+            onChange={handleSickLeaveRequiredChange}
+          />
+        </Box>
+      </Typography>
 
-      <TextField
-        label="Sick leave ends at"
-        id="new-entry-sick-leave-end"
-        variant="standard"
-        value={entryFormFields.sickLeave.endDate}
-        onChange={(event) => handleSickleaveEndDateChange(event.target.value)}
-      />
+      {!sickLeaveFormVisible ? null : (
+        <>
+          <TextField
+            type="date"
+            label="Sick leave starts at"
+            id="new-entry-sick-leave-start"
+            variant="standard"
+            InputLabelProps={{ shrink: true }}
+            value={entryFormFields.sickLeave.startDate}
+            onChange={(event) =>
+              handleSickLeaveStartDateChange(event.target.value)
+            }
+          />
+
+          <TextField
+            type="date"
+            label="Sick leave ends at"
+            id="new-entry-sick-leave-end"
+            variant="standard"
+            InputLabelProps={{ shrink: true }}
+            value={entryFormFields.sickLeave.endDate}
+            onChange={(event) =>
+              handleSickleaveEndDateChange(event.target.value)
+            }
+          />
+        </>
+      )}
     </>
   );
 };

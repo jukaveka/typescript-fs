@@ -135,10 +135,12 @@ const PatientEntryForm = ({ patientId }: Props) => {
                     Select the type of visit and fill the required fields
                   </Typography>
 
-                  <EntryTypeFields
-                    entryFormFields={entryFormFields}
-                    setEntryFormFields={setEntryFormFields}
-                  />
+                  <Box>
+                    <EntryTypeFields
+                      entryFormFields={entryFormFields}
+                      setEntryFormFields={setEntryFormFields}
+                    />
+                  </Box>
 
                   <Button variant="contained" onClick={handleNext}>
                     Review
@@ -151,7 +153,10 @@ const PatientEntryForm = ({ patientId }: Props) => {
                   Review entry and submit
                 </StepButton>
                 <StepContent>
-                  <FormReview entryFormFields={entryFormFields} />
+                  <Box>
+                    <FormReview entryFormFields={entryFormFields} />
+                  </Box>
+
                   <Button variant="contained" onClick={handleNewEntry}>
                     Submit
                   </Button>
