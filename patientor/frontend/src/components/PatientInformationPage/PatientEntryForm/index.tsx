@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-import { Patient, EntryFormFields } from "../../../types";
+import { Patient, EntryFormFields, healthCheckRating } from "../../../types";
 
 import patientService from "../../../services/patientService";
 
 import BasicEntryFields from "./BasicEntryFields";
 import DescriptionField from "./DescriptionField";
 import DiagnosisField from "./DiagnosisField";
+import EntryTypeFields from "./EntryTypeFields";
 import FormReview from "./FormReview";
 
 import {
@@ -20,7 +21,6 @@ import {
   Stepper,
   Typography,
 } from "@mui/material";
-import EntryTypeFields from "./EntryTypeFields";
 
 interface Props {
   patientId: Patient["id"];
@@ -44,7 +44,7 @@ const PatientEntryForm = ({ patientId }: Props) => {
       startDate: "",
       endDate: "",
     },
-    healthCheckRating: 0,
+    healthCheckRating: healthCheckRating.Healthy,
   });
 
   console.log(entryFormFields);

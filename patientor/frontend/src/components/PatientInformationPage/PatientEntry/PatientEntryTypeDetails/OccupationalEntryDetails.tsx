@@ -3,10 +3,11 @@ import { OccupationalHealthCareEntry, SickLeave } from "../../../../types";
 import { Typography } from "@mui/material";
 
 interface Props {
-  entry: OccupationalHealthCareEntry;
+  employerName: OccupationalHealthCareEntry["employerName"];
+  sickLeave: OccupationalHealthCareEntry["sickLeave"];
 }
 
-const OccupationalEntryDetails = ({ entry }: Props) => {
+const OccupationalEntryDetails = ({ employerName, sickLeave }: Props) => {
   const renderSickLeave = (sickLeave: SickLeave | undefined) => {
     if (!sickLeave) {
       return null;
@@ -25,9 +26,9 @@ const OccupationalEntryDetails = ({ entry }: Props) => {
   return (
     <>
       <Typography variant="h6"> Employer </Typography>
-      <Typography> {entry.employerName} </Typography>
+      <Typography> {employerName} </Typography>
 
-      {renderSickLeave(entry.sickLeave)}
+      {renderSickLeave(sickLeave)}
     </>
   );
 };

@@ -13,13 +13,26 @@ interface Props {
 const PatientEntryTypeDetails = ({ entry }: Props) => {
   const renderTypeSpecificDetails = (entry: Entry) => {
     const type = entry.type;
+
     switch (type) {
       case "Hospital":
-        return <HospitalEntryDetails entry={entry} />;
+        return <HospitalEntryDetails discharge={entry.discharge} />;
+
       case "OccupationalHealthcare":
-        return <OccupationalEntryDetails entry={entry} />;
+        return (
+          <OccupationalEntryDetails
+            employerName={entry.employerName}
+            sickLeave={entry.sickLeave}
+          />
+        );
+
       case "HealthCheck":
-        return <HealthCheckEntryDetails entry={entry} />;
+        return (
+          <HealthCheckEntryDetails
+            healthCheckRating={entry.healthCheckRating}
+          />
+        );
+
       default:
         return assertNever(type);
     }

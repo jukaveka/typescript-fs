@@ -1,15 +1,15 @@
-import { HealthCheckEntry, healthCheckRating } from "../../../../types";
+import { HealthCheckEntry } from "../../../../types";
 
 import { Typography } from "@mui/material";
 import { Favorite } from "@mui/icons-material";
 
 interface Props {
-  entry: HealthCheckEntry;
+  healthCheckRating: HealthCheckEntry["healthCheckRating"];
 }
 
-const HealthCheckEntryDetails = ({ entry }: Props) => {
+const HealthCheckEntryDetails = ({ healthCheckRating }: Props) => {
   const renderHealthCheckRatingInformation = (
-    healthCheckRating: healthCheckRating
+    healthCheckRating: HealthCheckEntry["healthCheckRating"]
   ) => {
     switch (healthCheckRating) {
       case 0:
@@ -28,7 +28,7 @@ const HealthCheckEntryDetails = ({ entry }: Props) => {
   return (
     <>
       <Typography variant="h6"> Health rating </Typography>
-      {renderHealthCheckRatingInformation(entry.healthCheckRating)}
+      {renderHealthCheckRatingInformation(healthCheckRating)}
     </>
   );
 };
