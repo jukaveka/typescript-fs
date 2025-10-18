@@ -33,17 +33,17 @@ const PatientInformationPage = () => {
     components: {
       MuiButton: {
         defaultProps: {
-          style: { margin: "20px 0px" },
+          style: { marginBottom: "20pxx" },
         },
       },
       MuiTextField: {
         defaultProps: {
-          style: { margin: "10px" },
+          style: { marginBottom: "20px" },
         },
       },
       MuiTypography: {
         defaultProps: {
-          style: { margin: "10px 0px" },
+          style: { marginBottom: "15px" },
         },
       },
       MuiSlider: {
@@ -53,7 +53,7 @@ const PatientInformationPage = () => {
       },
       MuiSelect: {
         defaultProps: {
-          style: { margin: "10px 0px" },
+          style: { marginBottom: "20px" },
         },
       },
     },

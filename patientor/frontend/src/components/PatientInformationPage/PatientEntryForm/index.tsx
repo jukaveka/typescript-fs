@@ -83,11 +83,12 @@ const PatientEntryForm = ({ patientId }: Props) => {
                     entryFormFields={entryFormFields}
                     setEntryFormFields={setEntryFormFields}
                   />
-                  <br />
-                  <br />
-                  <Button variant="contained" onClick={handleNext}>
-                    Next
-                  </Button>
+
+                  <Box>
+                    <Button variant="contained" onClick={handleNext}>
+                      Next
+                    </Button>
+                  </Box>
                 </StepContent>
               </Step>
 
@@ -101,7 +102,6 @@ const PatientEntryForm = ({ patientId }: Props) => {
                     entryFormFields={entryFormFields}
                     setEntryFormFields={setEntryFormFields}
                   />
-                  <br /> <br />
                   <Button variant="contained" onClick={handleNext}>
                     Next
                   </Button>
@@ -118,7 +118,7 @@ const PatientEntryForm = ({ patientId }: Props) => {
                     entryFormFields={entryFormFields}
                     setEntryFormFields={setEntryFormFields}
                   />
-                  <br /> <br />
+
                   <Button variant="contained" onClick={handleNext}>
                     Next
                   </Button>

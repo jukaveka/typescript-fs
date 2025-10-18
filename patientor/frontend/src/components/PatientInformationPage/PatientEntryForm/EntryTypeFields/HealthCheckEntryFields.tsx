@@ -36,6 +36,7 @@ const HealthCheckEntryFields = ({
       <Typography variant="subtitle1">
         Select appropriate health rating for patient based on your examination
       </Typography>
+
       <Slider
         value={entryFormFields.healthCheckRating}
         onChange={handleChange}

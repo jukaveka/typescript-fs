@@ -26,6 +26,7 @@ const DiagnosisPicker = ({ setDiagnosisCodes }: Props) => {
 
   const addDiagnosis = () => {
     setDiagnosisCodes(selectedDiagnosis);
+    setSelectedDiagnosis("");
   };
 
   return (

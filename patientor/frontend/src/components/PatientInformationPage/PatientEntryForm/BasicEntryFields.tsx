@@ -18,10 +18,11 @@ const BasicEntryFields = ({ entryFormFields, setEntryFormFields }: Props) => {
 
   return (
     <>
-      <Typography variant="subtitle1" sx={{ paddingBottom: "20px" }}>
+      <Typography variant="subtitle1">
         Enter date of the visit, admission or examination, and specialist who
         examined the patient.
       </Typography>
+
       <TextField
         label="Date"
         variant="standard"

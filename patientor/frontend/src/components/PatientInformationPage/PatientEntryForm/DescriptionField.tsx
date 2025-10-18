@@ -14,7 +14,7 @@ const DescriptionField = ({ entryFormFields, setEntryFormFields }: Props) => {
 
   return (
     <>
-      <Typography variant="subtitle1" sx={{ paddingBottom: "20px" }}>
+      <Typography variant="subtitle1">
         Describe the reason for visit or admission, general talking points and
         any abnormalities you found
       </Typography>
