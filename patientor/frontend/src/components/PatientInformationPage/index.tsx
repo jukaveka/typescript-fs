@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Patient } from "../../types";
+import { Entry, Patient } from "../../types";
 
 import PatientService from "../../services/patientService";
 
@@ -59,6 +59,12 @@ const PatientInformationPage = () => {
     },
   });
 
+  const addPatientEntry = (entry: Entry) => {
+    const updatedPatientEntries = patient.entries.concat(entry);
+    const updatedPatient = { ...patient, entries: updatedPatientEntries };
+    setPatient(updatedPatient);
+  };
+
   return (
     <>
       <Container>
@@ -73,7 +79,10 @@ const PatientInformationPage = () => {
                 New entry
               </Typography>
 
-              <PatientEntryForm patientId={patient.id} />
+              <PatientEntryForm
+                patientId={patient.id}
+                addPatientEntry={addPatientEntry}
+              />
             </Grid>
 
             <Grid item xs={6}>

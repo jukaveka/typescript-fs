@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-import { Patient, EntryFormFields, healthCheckRating } from "../../../types";
+import {
+  Patient,
+  EntryFormFields,
+  healthCheckRating,
+  Entry,
+} from "../../../types";
 
 import patientService from "../../../services/patientService";
 
@@ -24,36 +29,49 @@ import {
 
 interface Props {
   patientId: Patient["id"];
+  addPatientEntry: (entry: Entry) => void;
 }
 
-const PatientEntryForm = ({ patientId }: Props) => {
+const defaultFormValues: EntryFormFields = {
+  date: "",
+  description: "",
+  diagnosisCodes: [],
+  specialist: "",
+  type: "Hospital",
+  discharge: {
+    date: "",
+    criteria: "",
+  },
+  employerName: "",
+  sickLeave: {
+    startDate: "",
+    endDate: "",
+  },
+  healthCheckRating: healthCheckRating.Healthy,
+};
+
+const PatientEntryForm = ({ patientId, addPatientEntry }: Props) => {
   const [activeStep, setActiveStep] = useState(0);
 
-  const [entryFormFields, setEntryFormFields] = useState<EntryFormFields>({
-    date: "",
-    description: "",
-    diagnosisCodes: [],
-    specialist: "",
-    type: "Hospital",
-    discharge: {
-      date: "",
-      criteria: "",
-    },
-    employerName: "",
-    sickLeave: {
-      startDate: "",
-      endDate: "",
-    },
-    healthCheckRating: healthCheckRating.Healthy,
-  });
+  const [entryFormFields, setEntryFormFields] =
+    useState<EntryFormFields>(defaultFormValues);
 
   console.log(entryFormFields);
 
-  const handleNewEntry = () => {
+  const resetFormValues = () => {
+    setEntryFormFields(defaultFormValues);
+  };
+
+  const handleNewEntry = async () => {
     const newEntryData = entryFormFields;
 
     try {
-      patientService.addEntry(patientId, newEntryData);
+      const addedEntry = await patientService.addEntry(patientId, newEntryData);
+
+      resetFormValues();
+      setActiveStep(0);
+
+      addPatientEntry(addedEntry);
     } catch (error) {
       console.log(error);
     }
@@ -157,9 +175,11 @@ const PatientEntryForm = ({ patientId }: Props) => {
                     <FormReview entryFormFields={entryFormFields} />
                   </Box>
 
-                  <Button variant="contained" onClick={handleNewEntry}>
-                    Submit
-                  </Button>
+                  <Box>
+                    <Button variant="contained" onClick={handleNewEntry}>
+                      Submit
+                    </Button>
+                  </Box>
                 </StepContent>
               </Step>
             </Stepper>
