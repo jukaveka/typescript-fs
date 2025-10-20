@@ -30,6 +30,7 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
+import { assertNever } from "../../../utils/assertNever";
 
 interface Props {
   patientId: Patient["id"];
@@ -89,6 +90,36 @@ const PatientEntryForm = ({ patientId, addPatientEntry }: Props) => {
   const handleStep = (targetStep: number) => {
     setActiveStep(targetStep);
   };
+
+  const typeFieldsFilled = () => {
+    switch (entryFormFields.type) {
+      case "Hospital":
+        return (
+          entryFormFields.discharge.date !== defaultFormValues.discharge.date &&
+          entryFormFields.discharge.criteria !==
+            defaultFormValues.discharge.criteria
+        );
+      case "OccupationalHealthcare":
+        return entryFormFields.employerName !== defaultFormValues.employerName;
+      case "HealthCheck":
+        return Object.values(healthCheckRating).includes(
+          entryFormFields.healthCheckRating
+        );
+      default:
+        return assertNever(entryFormFields.type);
+    }
+  };
+
+  const readyToSubmit = () => {
+    return (
+      entryFormFields.date !== defaultFormValues.date &&
+      entryFormFields.specialist !== defaultFormValues.specialist &&
+      entryFormFields.description !== defaultFormValues.description &&
+      typeFieldsFilled()
+    );
+  };
+
+  console.log(readyToSubmit());
 
   return (
     <ThemeProvider theme={theme}>
@@ -178,13 +209,30 @@ const PatientEntryForm = ({ patientId, addPatientEntry }: Props) => {
                   </StepButton>
                   <StepContent>
                     <Box>
-                      <FormReview entryFormFields={entryFormFields} />
+                      <FormReview
+                        entryFormFields={entryFormFields}
+                        readyToSubmit={readyToSubmit()}
+                      />
                     </Box>
 
                     <Box>
-                      <Button variant="contained" onClick={handleNewEntry}>
-                        Submit
-                      </Button>
+                      {readyToSubmit() ? (
+                        <>
+                          <Button variant="contained" onClick={handleNewEntry}>
+                            Submit
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          <Button
+                            variant="contained"
+                            disabled
+                            onClick={handleNewEntry}
+                          >
+                            Submit
+                          </Button>
+                        </>
+                      )}
                     </Box>
                   </StepContent>
                 </Step>

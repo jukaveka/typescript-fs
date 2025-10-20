@@ -10,9 +10,11 @@ import { Typography } from "@mui/material";
 
 interface Props {
   entryFormFields: EntryFormFields;
+  readyToSubmit: boolean;
 }
 
-const FormReview = ({ entryFormFields }: Props) => {
+const FormReview = ({ entryFormFields, readyToSubmit }: Props) => {
+  console.log(readyToSubmit);
   const renderTypeSpecificFields = (type: EntryFormFields["type"]) => {
     switch (type) {
       case "Hospital":
@@ -35,16 +37,14 @@ const FormReview = ({ entryFormFields }: Props) => {
     }
   };
 
-  const reviewNotReady = () => {
+  const entryHasNoDiagnosis = () => {
     return (
-      !entryFormFields.date ||
-      !entryFormFields.specialist ||
-      !entryFormFields.description ||
-      !entryFormFields.type
+      entryFormFields.diagnosisCodes === undefined ||
+      entryFormFields.diagnosisCodes.length === 0
     );
   };
 
-  if (reviewNotReady()) {
+  if (!readyToSubmit) {
     return (
       <Typography variant="subtitle1">
         Review is not readable until you've filled appropriate fields.
@@ -68,24 +68,22 @@ const FormReview = ({ entryFormFields }: Props) => {
       </Typography>
 
       <fieldset style={{ marginBottom: "20px", padding: "20px" }}>
-        <Typography variant="h6">
-          <b>Basic information</b>
-        </Typography>
+        <Typography variant="h6">Basic information</Typography>
         <Typography> Date - {entryFormFields.date} </Typography>
         <Typography> Specialist - {entryFormFields.specialist} </Typography>
 
-        <Typography variant="h6">
-          <b>Description</b>
-        </Typography>
+        <Typography variant="h6">Description</Typography>
         <Typography> {entryFormFields.description} </Typography>
 
-        <Typography variant="h6">
-          <b> Diagnosis</b>
-        </Typography>
-        {entryFormFields.diagnosisCodes === undefined ? (
-          <Typography> No diagnosis added </Typography>
-        ) : (
-          <DiagnosisList diagnosisCodes={entryFormFields.diagnosisCodes} />
+        {entryHasNoDiagnosis() ? null : (
+          <>
+            <Typography variant="h6">Diagnosis</Typography>
+            {entryFormFields.diagnosisCodes === undefined ? (
+              <Typography> No diagnosis added </Typography>
+            ) : (
+              <DiagnosisList diagnosisCodes={entryFormFields.diagnosisCodes} />
+            )}
+          </>
         )}
 
         {renderTypeSpecificFields(entryFormFields.type)}

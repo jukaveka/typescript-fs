@@ -9,7 +9,13 @@ interface Props {
 
 const OccupationalEntryDetails = ({ employerName, sickLeave }: Props) => {
   const renderSickLeave = (sickLeave: SickLeave | undefined) => {
-    if (!sickLeave) {
+    if (
+      !sickLeave ||
+      sickLeave.startDate === undefined ||
+      sickLeave.startDate === "" ||
+      sickLeave.endDate === undefined ||
+      sickLeave.endDate === ""
+    ) {
       return null;
     } else {
       return (
