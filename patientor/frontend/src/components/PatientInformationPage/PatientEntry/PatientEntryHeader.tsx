@@ -23,7 +23,7 @@ const PatientEntryHeader = ({ entry }: Props) => {
   };
 
   return (
-    <Typography component="span">
+    <Typography>
       {entry.date} - {renderEntryType(entry.type)} - {entry.specialist}
     </Typography>
   );

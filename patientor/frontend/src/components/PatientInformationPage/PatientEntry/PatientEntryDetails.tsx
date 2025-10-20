@@ -15,7 +15,7 @@ const PatientEntryDetails = ({ entry }: Props) => {
       <PatientEntryTypeDetails entry={entry} />
 
       <Typography variant="h6"> Description </Typography>
-      <Typography> {entry.description} </Typography>
+      <Typography variant="subtitle1"> {entry.description} </Typography>
 
       {entry.diagnosisCodes === undefined ? null : (
         <>

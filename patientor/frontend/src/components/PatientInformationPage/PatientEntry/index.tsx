@@ -3,7 +3,15 @@ import { Entry } from "../../../types";
 import PatientEntryHeader from "./PatientEntryHeader";
 import PatientEntryDetails from "./PatientEntryDetails";
 
-import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { entryTheme } from "./EntryTheme";
+
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
 import { ArrowDropDown } from "@mui/icons-material";
 
 interface Props {
@@ -11,8 +19,9 @@ interface Props {
 }
 
 const PatientEntry = ({ entry }: Props) => {
+  const theme = createTheme(entryTheme);
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Accordion>
         <AccordionSummary
           expandIcon={<ArrowDropDown />}
@@ -26,7 +35,7 @@ const PatientEntry = ({ entry }: Props) => {
           <PatientEntryDetails entry={entry} />
         </AccordionDetails>
       </Accordion>
-    </>
+    </ThemeProvider>
   );
 };
 

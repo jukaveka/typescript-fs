@@ -67,7 +67,7 @@ const FormReview = ({ entryFormFields }: Props) => {
         Submit if all of the information given is correct
       </Typography>
 
-      <fieldset>
+      <fieldset style={{ marginBottom: "20px", padding: "20px" }}>
         <Typography variant="h6">
           <b>Basic information</b>
         </Typography>

@@ -9,13 +9,7 @@ import PatientInformation from "./PatientInformationBox";
 import PatientEntry from "./PatientEntry";
 import PatientEntryForm from "./PatientEntryForm";
 
-import {
-  Container,
-  createTheme,
-  Grid,
-  ThemeProvider,
-  Typography,
-} from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 
 const PatientInformationPage = () => {
   const { id } = useParams();
@@ -28,36 +22,6 @@ const PatientInformationPage = () => {
   }, [id]);
 
   if (!patient) return null;
-
-  const theme = createTheme({
-    components: {
-      MuiButton: {
-        defaultProps: {
-          style: { marginBottom: "10px" },
-        },
-      },
-      MuiTextField: {
-        defaultProps: {
-          style: { marginBottom: "25px", width: "100%" },
-        },
-      },
-      MuiTypography: {
-        defaultProps: {
-          style: { marginBottom: "15px" },
-        },
-      },
-      MuiSlider: {
-        defaultProps: {
-          style: { margin: "25px", width: "90%" },
-        },
-      },
-      MuiSelect: {
-        defaultProps: {
-          style: { marginBottom: "25px" },
-        },
-      },
-    },
-  });
 
   const addPatientEntry = (entry: Entry) => {
     const updatedPatientEntries = patient.entries.concat(entry);
@@ -73,30 +37,28 @@ const PatientInformationPage = () => {
             <PatientInformation patient={patient} />
           </Grid>
 
-          <ThemeProvider theme={theme}>
-            <Grid item xs={6}>
-              <Typography variant="h5" sx={{ textAlign: "center" }}>
-                New entry
-              </Typography>
+          <Grid item xs={6}>
+            <Typography variant="h5" sx={{ textAlign: "center" }}>
+              New entry
+            </Typography>
 
-              <PatientEntryForm
-                patientId={patient.id}
-                addPatientEntry={addPatientEntry}
-              />
-            </Grid>
+            <PatientEntryForm
+              patientId={patient.id}
+              addPatientEntry={addPatientEntry}
+            />
+          </Grid>
 
-            <Grid item xs={6}>
-              <Typography variant="h5" sx={{ textAlign: "center" }}>
-                Entries
-              </Typography>
+          <Grid item xs={6}>
+            <Typography variant="h5" sx={{ textAlign: "center" }}>
+              Entries
+            </Typography>
 
-              <>
-                {patient.entries.map((entry) => {
-                  return <PatientEntry key={entry.id} entry={entry} />;
-                })}
-              </>
-            </Grid>
-          </ThemeProvider>
+            <>
+              {patient.entries.map((entry) => {
+                return <PatientEntry key={entry.id} entry={entry} />;
+              })}
+            </>
+          </Grid>
         </Grid>
       </Container>
     </>
