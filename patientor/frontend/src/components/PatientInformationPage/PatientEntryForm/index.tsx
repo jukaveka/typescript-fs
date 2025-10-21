@@ -205,6 +205,7 @@ const PatientEntryForm = ({ patientId, addPatientEntry }: Props) => {
                       <EntryTypeFields
                         entryFormFields={entryFormFields}
                         setEntryFormFields={setEntryFormFields}
+                        defaultFormValues={defaultFormValues}
                       />
                     </Box>
 

@@ -1,4 +1,4 @@
-import { MenuItem, Select } from "@mui/material";
+import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { Entry, EntryFormFields } from "../../../../types";
 import HospitalEntryFields from "./HospitalEntryFields";
 import OccupationalEntryFields from "./OccupationalEntryFields";
@@ -7,9 +7,14 @@ import HealthCheckEntryFields from "./HealthCheckEntryFields";
 interface Props {
   entryFormFields: EntryFormFields;
   setEntryFormFields: React.Dispatch<React.SetStateAction<EntryFormFields>>;
+  defaultFormValues: EntryFormFields;
 }
 
-const EntryTypeFields = ({ entryFormFields, setEntryFormFields }: Props) => {
+const EntryTypeFields = ({
+  entryFormFields,
+  setEntryFormFields,
+  defaultFormValues,
+}: Props) => {
   const renderTypeSpecificFields = () => {
     switch (entryFormFields.type) {
       case "Hospital":
@@ -37,18 +42,28 @@ const EntryTypeFields = ({ entryFormFields, setEntryFormFields }: Props) => {
         return null;
     }
   };
+
+  const handleEntryTypeChange = (event: SelectChangeEvent) => {
+    setEntryFormFields({
+      ...entryFormFields,
+
+      type: event.target.value as Entry["type"],
+
+      discharge: defaultFormValues.discharge,
+
+      employerName: defaultFormValues.employerName,
+      sickLeave: defaultFormValues.sickLeave,
+
+      healthCheckRating: defaultFormValues.healthCheckRating,
+    });
+  };
   return (
     <>
       <Select
         id="new-entry-type"
         fullWidth
         value={entryFormFields.type}
-        onChange={(event) =>
-          setEntryFormFields({
-            ...entryFormFields,
-            type: event.target.value as Entry["type"],
-          })
-        }
+        onChange={handleEntryTypeChange}
       >
         <MenuItem key={`entry-type-hospital`} value={"Hospital"}>
           Hospital
