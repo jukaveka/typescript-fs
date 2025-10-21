@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export interface Diagnosis {
   code: string;
   name: string;
@@ -94,3 +96,7 @@ export type EntryFormFields = BaseEntryFields &
   HospitalEntryFields &
   OccupationalEntryFields &
   HealthCheckEntryFields;
+
+export const ISODateSchema = z.iso.date();
+
+export type ISODate = z.infer<typeof ISODateSchema>;

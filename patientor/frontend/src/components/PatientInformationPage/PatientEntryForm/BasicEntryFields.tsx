@@ -1,5 +1,9 @@
 import React from "react";
+
 import { EntryFormFields } from "../../../types";
+
+import { entryDateIsValid } from "../../../utils/dateOperations";
+
 import { Box, TextField, Typography } from "@mui/material";
 
 interface Props {
@@ -24,13 +28,29 @@ const BasicEntryFields = ({ entryFormFields, setEntryFormFields }: Props) => {
       </Typography>
 
       <Box>
-        <TextField
-          type="date"
-          variant="standard"
-          id="new-entry-date"
-          value={entryFormFields.date}
-          onChange={(event) => handleDateChange(event.target.value)}
-        />
+        {entryDateIsValid(entryFormFields.date) ? (
+          <>
+            <TextField
+              type="date"
+              variant="standard"
+              id="new-entry-date"
+              value={entryFormFields.date}
+              onChange={(event) => handleDateChange(event.target.value)}
+            />
+          </>
+        ) : (
+          <>
+            <TextField
+              error
+              helperText="Entry date can't be in the future"
+              type="date"
+              variant="standard"
+              id="new-entry-date"
+              value={entryFormFields.date}
+              onChange={(event) => handleDateChange(event.target.value)}
+            />
+          </>
+        )}
       </Box>
 
       <TextField

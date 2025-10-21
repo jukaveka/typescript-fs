@@ -1,5 +1,8 @@
-import { Box, TextField } from "@mui/material";
 import { EntryFormFields } from "../../../../types";
+
+import { dateOrderIsValid } from "../../../../utils/dateOperations";
+
+import { Box, TextField } from "@mui/material";
 
 interface Props {
   entryFormFields: EntryFormFields;
@@ -31,15 +34,40 @@ const HospitalEntryFields = ({
   return (
     <>
       <Box>
-        <TextField
-          type="date"
-          id="new-entry-discharge-date"
-          label="Date of discharge"
-          InputLabelProps={{ shrink: true }}
-          variant="standard"
-          value={entryFormFields.discharge.date}
-          onChange={(event) => handleDischargeDateChange(event.target.value)}
-        />
+        {dateOrderIsValid(
+          entryFormFields.date,
+          entryFormFields.discharge.date
+        ) ? (
+          <>
+            <TextField
+              type="date"
+              id="new-entry-discharge-date"
+              label="Date of discharge"
+              InputLabelProps={{ shrink: true }}
+              variant="standard"
+              value={entryFormFields.discharge.date}
+              onChange={(event) =>
+                handleDischargeDateChange(event.target.value)
+              }
+            />
+          </>
+        ) : (
+          <>
+            <TextField
+              error
+              helperText="Discharge date can't be earlier than entry date"
+              type="date"
+              id="new-entry-discharge-date"
+              label="Date of discharge"
+              InputLabelProps={{ shrink: true }}
+              variant="standard"
+              value={entryFormFields.discharge.date}
+              onChange={(event) =>
+                handleDischargeDateChange(event.target.value)
+              }
+            />
+          </>
+        )}
       </Box>
 
       <TextField

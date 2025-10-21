@@ -9,6 +9,13 @@ import {
 
 import patientService from "../../../services/patientService";
 
+import { assertNever } from "../../../utils/assertNever";
+import {
+  dateOrderIsValid,
+  entryDateIsValid,
+  getCurrentDateISO,
+} from "../../../utils/dateOperations";
+
 import BasicEntryFields from "./BasicEntryFields";
 import DescriptionField from "./DescriptionField";
 import DiagnosisField from "./DiagnosisField";
@@ -30,27 +37,28 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
-import { assertNever } from "../../../utils/assertNever";
 
 interface Props {
   patientId: Patient["id"];
   addPatientEntry: (entry: Entry) => void;
 }
 
+const currentDate = getCurrentDateISO();
+
 const defaultFormValues: EntryFormFields = {
-  date: "",
+  date: currentDate,
   description: "",
   diagnosisCodes: [],
   specialist: "",
   type: "Hospital",
   discharge: {
-    date: "",
+    date: currentDate,
     criteria: "",
   },
   employerName: "",
   sickLeave: {
-    startDate: "",
-    endDate: "",
+    startDate: currentDate,
+    endDate: currentDate,
   },
   healthCheckRating: healthCheckRating.Healthy,
 };
@@ -112,14 +120,17 @@ const PatientEntryForm = ({ patientId, addPatientEntry }: Props) => {
 
   const readyToSubmit = () => {
     return (
-      entryFormFields.date !== defaultFormValues.date &&
       entryFormFields.specialist !== defaultFormValues.specialist &&
       entryFormFields.description !== defaultFormValues.description &&
-      typeFieldsFilled()
+      typeFieldsFilled() &&
+      entryDateIsValid(entryFormFields.date) &&
+      dateOrderIsValid(entryFormFields.date, entryFormFields.discharge.date) &&
+      dateOrderIsValid(
+        entryFormFields.sickLeave.startDate,
+        entryFormFields.sickLeave.endDate
+      )
     );
   };
-
-  console.log(readyToSubmit());
 
   return (
     <ThemeProvider theme={theme}>

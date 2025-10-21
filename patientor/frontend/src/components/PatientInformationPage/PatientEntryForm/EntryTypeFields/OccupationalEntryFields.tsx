@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { EntryFormFields } from "../../../../types";
 
+import { dateOrderIsValid } from "../../../../utils/dateOperations";
+
 import { Box, Switch, TextField, Typography } from "@mui/material";
 
 interface Props {
@@ -85,17 +87,40 @@ const OccupationalEntryForm = ({
             }
           />
 
-          <TextField
-            type="date"
-            label="Sick leave ends at"
-            id="new-entry-sick-leave-end"
-            variant="standard"
-            InputLabelProps={{ shrink: true }}
-            value={entryFormFields.sickLeave.endDate}
-            onChange={(event) =>
-              handleSickleaveEndDateChange(event.target.value)
-            }
-          />
+          {dateOrderIsValid(
+            entryFormFields.sickLeave.startDate,
+            entryFormFields.sickLeave.endDate
+          ) ? (
+            <>
+              <TextField
+                type="date"
+                label="Sick leave ends at"
+                id="new-entry-sick-leave-end"
+                variant="standard"
+                InputLabelProps={{ shrink: true }}
+                value={entryFormFields.sickLeave.endDate}
+                onChange={(event) =>
+                  handleSickleaveEndDateChange(event.target.value)
+                }
+              />
+            </>
+          ) : (
+            <>
+              <TextField
+                error
+                helperText="Sick leave ending date can't be later than starting date"
+                type="date"
+                label="Sick leave ends at"
+                id="new-entry-sick-leave-end"
+                variant="standard"
+                InputLabelProps={{ shrink: true }}
+                value={entryFormFields.sickLeave.endDate}
+                onChange={(event) =>
+                  handleSickleaveEndDateChange(event.target.value)
+                }
+              />
+            </>
+          )}
         </>
       )}
     </>
