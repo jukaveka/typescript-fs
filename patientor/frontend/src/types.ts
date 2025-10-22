@@ -100,3 +100,20 @@ export type EntryFormFields = BaseEntryFields &
 export const ISODateSchema = z.iso.date();
 
 export type ISODate = z.infer<typeof ISODateSchema>;
+
+type NotificationType = "SUCCESS" | "ERROR" | "CLEAR";
+
+export interface NotificationAction {
+  type: NotificationType;
+  payload: string | null;
+}
+
+export interface NotificationState {
+  message: string | null;
+  type: NotificationType;
+}
+
+export interface NotificationContextType {
+  notification: NotificationState;
+  setNotification: React.Dispatch<NotificationAction>;
+}
