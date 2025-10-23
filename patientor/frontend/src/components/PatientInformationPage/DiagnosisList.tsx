@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { Diagnosis } from "../../types";
+
+import { Diagnosis } from "../../types/DiagnosisTypes";
+
 import diagnosisService from "../../services/diagnosisService";
+
 import { Typography } from "@mui/material";
 
 interface Props {

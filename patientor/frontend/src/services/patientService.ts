@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import { Entry, EntryFormFields, Patient, PatientFormValues } from "../types";
+import { Entry, EntryFormFields } from "../types/PatientEntryTypes";
+import { Patient, PatientFormValues } from "../types/PatientTypes";
 
 import { apiBaseUrl } from "../constants";
 import { parseNewEntryFromValues } from "../utils/parseNewEntry";

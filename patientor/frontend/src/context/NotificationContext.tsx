@@ -6,7 +6,7 @@ import {
   NotificationAction,
   NotificationContextType,
   NotificationState,
-} from "../types";
+} from "../types/NotificationTypes";
 
 const NotificationContext = createContext<NotificationContextType | undefined>(
   undefined

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import diagnosisService from "../../../../services/diagnosisService";
 
-import { Diagnosis } from "../../../../types";
+import { Diagnosis } from "../../../../types/DiagnosisTypes";
 
 import { Button, MenuItem, Select } from "@mui/material";
 

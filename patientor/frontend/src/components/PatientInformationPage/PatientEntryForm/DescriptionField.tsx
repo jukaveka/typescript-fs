@@ -1,5 +1,7 @@
 import { TextField, Typography } from "@mui/material";
-import { EntryFormFields } from "../../../types";
+
+import { EntryFormFields } from "../../../types/PatientEntryTypes";
+
 import React from "react";
 
 interface Props {

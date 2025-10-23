@@ -1,6 +1,6 @@
 import React from "react";
 
-import { EntryFormFields } from "../../../types";
+import { EntryFormFields } from "../../../types/PatientEntryTypes";
 
 import { entryDateIsValid } from "../../../utils/dateOperations";
 

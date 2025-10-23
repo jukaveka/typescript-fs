@@ -1,6 +1,9 @@
 import React from "react";
 
-import { EntryFormFields, healthCheckRating } from "../../../../types";
+import {
+  EntryFormFields,
+  HealthCheckRating,
+} from "../../../../types/PatientEntryTypes";
 
 import { Slider, Typography } from "@mui/material";
 
@@ -9,8 +12,8 @@ interface Props {
   setEntryFormFields: React.Dispatch<React.SetStateAction<EntryFormFields>>;
 }
 
-const HealthCheckMarks = Object.entries(healthCheckRating)
-  .slice(Object.entries(healthCheckRating).length / 2)
+const HealthCheckMarks = Object.entries(HealthCheckRating)
+  .slice(Object.entries(HealthCheckRating).length / 2)
   .map((ratingArray) => {
     return { value: ratingArray[1], label: ratingArray[0] };
   })

@@ -1,4 +1,7 @@
-import { OccupationalHealthCareEntry, SickLeave } from "../../../../types";
+import {
+  OccupationalHealthCareEntry,
+  SickLeave,
+} from "../../../../types/PatientEntryTypes";
 
 import { Typography } from "@mui/material";
 

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { Entry, Patient } from "../../types";
+import { Patient } from "../../types/PatientTypes";
+import { Entry } from "../../types/PatientEntryTypes";
 
 import PatientService from "../../services/patientService";
 
@@ -10,7 +11,6 @@ import PatientEntry from "./PatientEntry";
 import PatientEntryForm from "./PatientEntryForm";
 
 import { Alert, Container, Grid, Typography } from "@mui/material";
-
 const PatientInformationPage = () => {
   const { id } = useParams();
   const [patient, setPatient] = useState<Patient>();

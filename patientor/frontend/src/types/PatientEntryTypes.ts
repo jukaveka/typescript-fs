@@ -1,16 +1,4 @@
-import { z } from "zod";
-
-export interface Diagnosis {
-  code: string;
-  name: string;
-  latin?: string;
-}
-
-export enum Gender {
-  Male = "male",
-  Female = "female",
-  Other = "other",
-}
+import { Diagnosis } from "./DiagnosisTypes";
 
 export interface BaseEntry {
   id: string;
@@ -20,7 +8,7 @@ export interface BaseEntry {
   description: string;
 }
 
-export enum healthCheckRating {
+export enum HealthCheckRating {
   "Healthy" = 0,
   "LowRisk" = 1,
   "HighRisk" = 2,
@@ -29,7 +17,7 @@ export enum healthCheckRating {
 
 export interface HealthCheckEntry extends BaseEntry {
   type: "HealthCheck";
-  healthCheckRating: healthCheckRating;
+  healthCheckRating: HealthCheckRating;
 }
 
 export interface SickLeave {
@@ -63,18 +51,6 @@ export type newEntry =
   | Omit<OccupationalHealthCareEntry, "id">
   | Omit<HospitalEntry, "id">;
 
-export interface Patient {
-  id: string;
-  name: string;
-  occupation: string;
-  gender: Gender;
-  ssn?: string;
-  dateOfBirth?: string;
-  entries: Entry[];
-}
-
-export type PatientFormValues = Omit<Patient, "id" | "entries">;
-
 export type BaseEntryFields = Pick<
   Entry,
   "date" | "specialist" | "diagnosisCodes" | "description" | "type"
@@ -96,26 +72,3 @@ export type EntryFormFields = BaseEntryFields &
   HospitalEntryFields &
   OccupationalEntryFields &
   HealthCheckEntryFields;
-
-export const ISODateSchema = z.iso.date();
-
-export type ISODate = z.infer<typeof ISODateSchema>;
-
-type NotificationType = "SUCCESS" | "ERROR" | "CLEAR";
-
-export interface NotificationAction {
-  type: NotificationType;
-  payload: string | null;
-}
-
-export interface NotificationState {
-  message: string | null;
-  type: NotificationType;
-}
-
-export type NotificationDispatch = React.Dispatch<NotificationAction>;
-
-export interface NotificationContextType {
-  state: NotificationState;
-  dispatch: NotificationDispatch;
-}

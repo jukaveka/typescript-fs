@@ -3,7 +3,7 @@ import axios from "axios";
 import { BrowserRouter as Router, Route, Link, Routes } from "react-router-dom";
 
 import { apiBaseUrl } from "./constants";
-import { Patient } from "./types";
+import { Patient } from "./types/PatientTypes";
 
 import patientService from "./services/patientService";
 

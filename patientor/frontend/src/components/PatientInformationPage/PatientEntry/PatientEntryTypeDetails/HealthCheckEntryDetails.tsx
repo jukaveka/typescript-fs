@@ -1,4 +1,4 @@
-import { HealthCheckEntry } from "../../../../types";
+import { HealthCheckEntry } from "../../../../types/PatientEntryTypes";
 
 import { Typography } from "@mui/material";
 import { Favorite } from "@mui/icons-material";

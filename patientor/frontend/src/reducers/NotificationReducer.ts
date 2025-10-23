@@ -2,7 +2,7 @@ import {
   NotificationAction,
   NotificationDispatch,
   NotificationState,
-} from "../types";
+} from "../types/NotificationTypes";
 
 export const NotificationReducer = (
   state: NotificationState,

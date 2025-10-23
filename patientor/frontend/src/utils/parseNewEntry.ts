@@ -1,4 +1,4 @@
-import { EntryFormFields } from "../types";
+import { EntryFormFields } from "../types/PatientEntryTypes";
 import { assertNever } from "./assertNever";
 
 export const parseNewEntryFromValues = (object: EntryFormFields) => {

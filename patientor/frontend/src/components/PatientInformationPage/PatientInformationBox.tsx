@@ -1,4 +1,4 @@
-import { Patient } from "../../types";
+import { Patient } from "../../types/PatientTypes";
 
 import { Grid, Paper, Typography } from "@mui/material";
 import MaleIcon from "@mui/icons-material/Male";

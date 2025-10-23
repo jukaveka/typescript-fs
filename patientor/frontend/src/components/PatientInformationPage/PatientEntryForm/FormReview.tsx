@@ -1,4 +1,5 @@
-import { EntryFormFields } from "../../../types";
+import { EntryFormFields } from "../../../types/PatientEntryTypes";
+
 import { assertNever } from "../../../utils/assertNever";
 
 import DiagnosisList from "../DiagnosisList";

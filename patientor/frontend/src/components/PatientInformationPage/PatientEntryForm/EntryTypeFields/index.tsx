@@ -1,8 +1,10 @@
-import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
-import { Entry, EntryFormFields } from "../../../../types";
+import { Entry, EntryFormFields } from "../../../../types/PatientEntryTypes";
+
 import HospitalEntryFields from "./HospitalEntryFields";
 import OccupationalEntryFields from "./OccupationalEntryFields";
 import HealthCheckEntryFields from "./HealthCheckEntryFields";
+
+import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
 interface Props {
   entryFormFields: EntryFormFields;

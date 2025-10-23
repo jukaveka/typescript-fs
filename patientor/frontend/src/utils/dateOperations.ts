@@ -1,4 +1,4 @@
-import { ISODate, ISODateSchema } from "../types";
+import { ISODate, ISODateSchema } from "../types/DateTypes";
 
 export const getCurrentDateISO = (): ISODate => {
   return new Date().toISOString().slice(0, 10);

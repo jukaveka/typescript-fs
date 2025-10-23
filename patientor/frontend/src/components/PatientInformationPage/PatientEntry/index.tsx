@@ -1,4 +1,4 @@
-import { Entry } from "../../../types";
+import { Entry } from "../../../types/PatientEntryTypes";
 
 import PatientEntryHeader from "./PatientEntryHeader";
 import PatientEntryDetails from "./PatientEntryDetails";

@@ -1,11 +1,11 @@
 import { useState } from "react";
 
+import { Patient } from "../../../types/PatientTypes";
 import {
-  Patient,
-  EntryFormFields,
-  healthCheckRating,
   Entry,
-} from "../../../types";
+  EntryFormFields,
+  HealthCheckRating,
+} from "../../../types/PatientEntryTypes";
 
 import patientService from "../../../services/patientService";
 
@@ -67,7 +67,7 @@ const defaultFormValues: EntryFormFields = {
     startDate: currentDate,
     endDate: currentDate,
   },
-  healthCheckRating: healthCheckRating.Healthy,
+  healthCheckRating: HealthCheckRating.Healthy,
 };
 
 const PatientEntryForm = ({ patientId, addPatientEntry }: Props) => {
@@ -123,7 +123,7 @@ const PatientEntryForm = ({ patientId, addPatientEntry }: Props) => {
       case "OccupationalHealthcare":
         return entryFormFields.employerName !== defaultFormValues.employerName;
       case "HealthCheck":
-        return Object.values(healthCheckRating).includes(
+        return Object.values(HealthCheckRating).includes(
           entryFormFields.healthCheckRating
         );
       default:

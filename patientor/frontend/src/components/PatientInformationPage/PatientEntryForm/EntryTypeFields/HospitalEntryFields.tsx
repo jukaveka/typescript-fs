@@ -1,4 +1,4 @@
-import { EntryFormFields } from "../../../../types";
+import { EntryFormFields } from "../../../../types/PatientEntryTypes";
 
 import { dateOrderIsValid } from "../../../../utils/dateOperations";
 
