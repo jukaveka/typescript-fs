@@ -9,7 +9,7 @@ import PatientInformation from "./PatientInformationBox";
 import PatientEntry from "./PatientEntry";
 import PatientEntryForm from "./PatientEntryForm";
 
-import { Container, Grid, Typography } from "@mui/material";
+import { Alert, Container, Grid, Typography } from "@mui/material";
 
 const PatientInformationPage = () => {
   const { id } = useParams();
@@ -21,7 +21,14 @@ const PatientInformationPage = () => {
     });
   }, [id]);
 
-  if (!patient) return null;
+  if (!patient)
+    return (
+      <>
+        <Alert sx={{ margin: "20px" }} severity="error">
+          No patient found
+        </Alert>
+      </>
+    );
 
   const addPatientEntry = (entry: Entry) => {
     const updatedPatientEntries = patient.entries.concat(entry);
