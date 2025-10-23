@@ -16,6 +16,13 @@ import {
   getCurrentDateISO,
 } from "../../../utils/dateOperations";
 
+import { useNotificationDispatch } from "../../../context/NotificationContext";
+
+import {
+  setErrorNotification,
+  setSuccessNotification,
+} from "../../../reducers/NotificationReducer";
+
 import BasicEntryFields from "./BasicEntryFields";
 import DescriptionField from "./DescriptionField";
 import DiagnosisField from "./DiagnosisField";
@@ -66,11 +73,10 @@ const defaultFormValues: EntryFormFields = {
 const PatientEntryForm = ({ patientId, addPatientEntry }: Props) => {
   const theme = createTheme(EntryFormTheme);
   const [activeStep, setActiveStep] = useState(0);
+  const notificationDispatch = useNotificationDispatch();
 
   const [entryFormFields, setEntryFormFields] =
     useState<EntryFormFields>(defaultFormValues);
-
-  console.log(entryFormFields);
 
   const resetFormValues = () => {
     setEntryFormFields(defaultFormValues);
@@ -86,8 +92,16 @@ const PatientEntryForm = ({ patientId, addPatientEntry }: Props) => {
       setActiveStep(0);
 
       addPatientEntry(addedEntry);
+      setSuccessNotification(
+        notificationDispatch,
+        "New patient entry has been added successfully."
+      );
     } catch (error) {
       console.log(error);
+      setErrorNotification(
+        notificationDispatch,
+        `There was issue adding new patient entry. Error ${error}`
+      );
     }
   };
 
@@ -103,9 +117,8 @@ const PatientEntryForm = ({ patientId, addPatientEntry }: Props) => {
     switch (entryFormFields.type) {
       case "Hospital":
         return (
-          entryFormFields.discharge.date !== defaultFormValues.discharge.date &&
           entryFormFields.discharge.criteria !==
-            defaultFormValues.discharge.criteria
+          defaultFormValues.discharge.criteria
         );
       case "OccupationalHealthcare":
         return entryFormFields.employerName !== defaultFormValues.employerName;

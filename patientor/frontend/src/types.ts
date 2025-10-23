@@ -113,7 +113,9 @@ export interface NotificationState {
   type: NotificationType;
 }
 
+export type NotificationDispatch = React.Dispatch<NotificationAction>;
+
 export interface NotificationContextType {
-  notification: NotificationState;
-  setNotification: React.Dispatch<NotificationAction>;
+  state: NotificationState;
+  dispatch: NotificationDispatch;
 }

@@ -1,4 +1,8 @@
-import { NotificationAction, NotificationState } from "../types";
+import {
+  NotificationAction,
+  NotificationDispatch,
+  NotificationState,
+} from "../types";
 
 export const NotificationReducer = (
   state: NotificationState,
@@ -23,12 +27,21 @@ export const NotificationReducer = (
 };
 
 export const setSuccessNotification = (
-  dispatch: (action: NotificationAction) => NotificationState,
-  type: NotificationAction["type"],
+  dispatch: NotificationDispatch,
   payload: NotificationAction["payload"]
 ) => {
-  dispatch({ type: type, payload: payload });
+  dispatch({ type: "SUCCESS", payload: payload });
   setTimeout(() => {
     dispatch({ type: "CLEAR", payload: "" });
-  });
+  }, 5000);
+};
+
+export const setErrorNotification = (
+  dispatch: NotificationDispatch,
+  payload: NotificationAction["payload"]
+) => {
+  dispatch({ type: "ERROR", payload: payload });
+  setTimeout(() => {
+    dispatch({ type: "CLEAR", payload: "" });
+  }, 5000);
 };
