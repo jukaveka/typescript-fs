@@ -29,7 +29,7 @@ router.post("/", (req, res) => {
     if (error instanceof z.ZodError) {
       return res.status(400).send({ error: error.issues });
     } else {
-      return res.status(400).send({ error: "unknown error " });
+      return res.status(400).send({ error: "unknown error" });
     }
   }
 });

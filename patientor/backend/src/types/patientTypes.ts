@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Entry, EntrySchema } from "./entryTypes";
+import { Entry } from "./entryTypes";
 
 export enum Gender {
   Male = "male",
@@ -31,7 +31,6 @@ export const NonSensitivePatientSchema = z.object({
   dateOfBirth: z.string().date(),
   gender: z.nativeEnum(Gender),
   occupation: z.string(),
-  entries: z.array(EntrySchema),
 });
 
 export type NonSensitivePatient = z.infer<typeof NonSensitivePatientSchema>;
