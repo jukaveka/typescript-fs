@@ -18,6 +18,8 @@ import AddPatientModal from "../AddPatientModal";
 import HealthRatingBar from "../HealthRatingBar";
 
 import patientService from "../../services/patientService";
+import { setSuccessNotification } from "../../reducers/NotificationReducer";
+import { useNotificationDispatch } from "../../context/NotificationContext";
 
 interface Props {
   patients: Patient[];
@@ -27,6 +29,8 @@ interface Props {
 const PatientListPage = ({ patients, setPatients }: Props) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<string>();
+
+  const notificationDispatch = useNotificationDispatch();
 
   const openModal = (): void => setModalOpen(true);
 
@@ -40,6 +44,10 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
       const patient = await patientService.create(values);
       setPatients(patients.concat(patient));
       setModalOpen(false);
+      setSuccessNotification(
+        notificationDispatch,
+        "New patient added successfully"
+      );
     } catch (e: unknown) {
       if (axios.isAxiosError(e)) {
         if (e?.response?.data && typeof e?.response?.data === "string") {
