@@ -20,6 +20,7 @@ const FormReview = ({ entryFormFields, readyToSubmit }: Props) => {
     switch (type) {
       case "Hospital":
         return <HospitalEntryDetails discharge={entryFormFields.discharge} />;
+
       case "OccupationalHealthcare":
         return (
           <OccupationalEntryDetails
@@ -27,12 +28,14 @@ const FormReview = ({ entryFormFields, readyToSubmit }: Props) => {
             sickLeave={entryFormFields.sickLeave}
           />
         );
+
       case "HealthCheck":
         return (
           <HealthCheckEntryDetails
             healthCheckRating={entryFormFields.healthCheckRating}
           />
         );
+
       default:
         return assertNever(type);
     }

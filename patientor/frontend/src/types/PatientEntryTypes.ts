@@ -25,10 +25,14 @@ export interface SickLeave {
   endDate: string;
 }
 
+export interface EntryFormSickLeave extends SickLeave {
+  ordered?: boolean;
+}
+
 export interface OccupationalHealthCareEntry extends BaseEntry {
   type: "OccupationalHealthcare";
   employerName: string;
-  sickLeave: SickLeave;
+  sickLeave: EntryFormSickLeave;
 }
 
 export interface Discharge {

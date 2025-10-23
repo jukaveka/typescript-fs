@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { EntryFormFields } from "../../../../types/PatientEntryTypes";
 
 import { dateOrderIsValid } from "../../../../utils/dateOperations";
@@ -15,8 +13,6 @@ const OccupationalEntryForm = ({
   entryFormFields,
   setEntryFormFields,
 }: Props) => {
-  const [sickLeaveFormVisible, setSickLeaveFormVisible] = useState(false);
-
   const handleEmployerNameChange = (newValue: string) => {
     setEntryFormFields({
       ...entryFormFields,
@@ -49,7 +45,15 @@ const OccupationalEntryForm = ({
   };
 
   const handleSickLeaveRequiredChange = () => {
-    setSickLeaveFormVisible(!sickLeaveFormVisible);
+    const newSickLeaveObject = {
+      ...entryFormFields.sickLeave,
+      ordered: !entryFormFields.sickLeave.ordered,
+    };
+
+    setEntryFormFields({
+      ...entryFormFields,
+      sickLeave: newSickLeaveObject,
+    });
   };
 
   return (
@@ -67,13 +71,13 @@ const OccupationalEntryForm = ({
         <Box>
           <Switch
             size="medium"
-            checked={sickLeaveFormVisible}
+            checked={entryFormFields.sickLeave.ordered}
             onChange={handleSickLeaveRequiredChange}
           />
         </Box>
       </Typography>
 
-      {!sickLeaveFormVisible ? null : (
+      {!entryFormFields.sickLeave.ordered ? null : (
         <>
           <TextField
             type="date"

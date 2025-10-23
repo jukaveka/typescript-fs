@@ -64,6 +64,7 @@ const defaultFormValues: EntryFormFields = {
   },
   employerName: "",
   sickLeave: {
+    ordered: false,
     startDate: currentDate,
     endDate: currentDate,
   },

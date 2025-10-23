@@ -17,11 +17,18 @@ export const parseNewEntryFromValues = (object: EntryFormFields) => {
         discharge: object.discharge,
       };
     case "OccupationalHealthcare":
-      return {
-        ...baseEntryObject,
-        employerName: object.employerName,
-        sickLeave: object.sickLeave,
-      };
+      if (object.sickLeave.ordered) {
+        return {
+          ...baseEntryObject,
+          employerName: object.employerName,
+          sickLeave: object.sickLeave,
+        };
+      } else {
+        return {
+          ...baseEntryObject,
+          employerName: object.employerName,
+        };
+      }
     case "HealthCheck":
       return {
         ...baseEntryObject,

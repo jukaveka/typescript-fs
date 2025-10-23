@@ -1,24 +1,17 @@
-import {
-  OccupationalHealthCareEntry,
-  SickLeave,
-} from "../../../../types/PatientEntryTypes";
+import { OccupationalHealthCareEntry } from "../../../../types/PatientEntryTypes";
 
 import { Typography } from "@mui/material";
 
 interface Props {
   employerName: OccupationalHealthCareEntry["employerName"];
-  sickLeave: OccupationalHealthCareEntry["sickLeave"];
+  sickLeave?: OccupationalHealthCareEntry["sickLeave"];
 }
 
 const OccupationalEntryDetails = ({ employerName, sickLeave }: Props) => {
-  const renderSickLeave = (sickLeave: SickLeave | undefined) => {
-    if (
-      !sickLeave ||
-      sickLeave.startDate === undefined ||
-      sickLeave.startDate === "" ||
-      sickLeave.endDate === undefined ||
-      sickLeave.endDate === ""
-    ) {
+  const renderSickLeave = (
+    sickLeave: OccupationalHealthCareEntry["sickLeave"] | undefined
+  ) => {
+    if (sickLeave === undefined || sickLeave.ordered === false) {
       return null;
     } else {
       return (
